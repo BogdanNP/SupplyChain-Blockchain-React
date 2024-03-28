@@ -27,11 +27,6 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
       {
         components: [
           {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
             internalType: "uint256",
             name: "productTypeId",
             type: "uint256",
@@ -55,11 +50,6 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
             internalType: "uint256",
             name: "batchCount",
             type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "composition",
-            type: "string",
           },
         ],
         internalType: "struct Types.ProductAddDTO",
@@ -138,11 +128,6 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
         internalType: "uint256",
         name: "recepieId",
         type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "productName",
-        type: "string",
       },
     ],
     name: "createProduct",
@@ -682,11 +667,6 @@ export const CONTRACT_ABI_PRODUCTS = [
       {
         components: [
           {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
             internalType: "uint256",
             name: "productTypeId",
             type: "uint256",
@@ -710,11 +690,6 @@ export const CONTRACT_ABI_PRODUCTS = [
             internalType: "uint256",
             name: "batchCount",
             type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "composition",
-            type: "string",
           },
         ],
         internalType: "struct Types.ProductAddDTO",
@@ -816,11 +791,6 @@ export const CONTRACT_ABI_PRODUCTS = [
             name: "quantityResult",
             type: "uint256",
           },
-          {
-            internalType: "string",
-            name: "composition",
-            type: "string",
-          },
         ],
         internalType: "struct Types.Recepie",
         name: "recepie",
@@ -861,11 +831,6 @@ export const CONTRACT_ABI_PRODUCTS = [
             name: "quantityResult",
             type: "uint256",
           },
-          {
-            internalType: "string",
-            name: "composition",
-            type: "string",
-          },
         ],
         internalType: "struct Types.Recepie[]",
         name: "recepieList",
@@ -883,11 +848,6 @@ export const CONTRACT_ABI_PRODUCTS = [
         internalType: "uint256",
         name: "recepieId",
         type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "productName",
-        type: "string",
       },
       {
         components: [
@@ -1115,11 +1075,6 @@ export const CONTRACT_ABI_PRODUCTS = [
         name: "batchCount",
         type: "uint256",
       },
-      {
-        internalType: "string",
-        name: "composition",
-        type: "string",
-      },
     ],
     stateMutability: "view",
     type: "function",
@@ -1205,11 +1160,6 @@ export const CONTRACT_ABI_PRODUCTS = [
         internalType: "uint256",
         name: "quantityResult",
         type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "composition",
-        type: "string",
       },
     ],
     stateMutability: "view",

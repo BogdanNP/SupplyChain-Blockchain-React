@@ -30,7 +30,6 @@ import CreateProductForm from "./CreateProductForm";
 import AddUserForm from "./AddUserForm";
 import FindUserForm from "./FindUserForm";
 import UserDetails from "./UserDetails";
-import ProductTable from "./ProductTable";
 import ProductTypeTable from "./ProductTypeTable";
 /*
   How should things happen:
@@ -107,12 +106,7 @@ function App() {
     setNewProductTypes(productTypeEvents);
     console.log("productTypeEvents", productTypeEvents);
 
-    const productList = await _productsContract.getProductList(_user.id);
-    setNewProducts(productList);
-    console.log("productList", productList);
-
     const productListEvents = await _productsContract.getProductEvents();
-    console.log("productListEvents", productList);
 
     const recepieEvents = await _productsContract.getRecepieEvents();
     console.log("recepieEvents", recepieEvents);
@@ -136,13 +130,11 @@ function App() {
   async function addProduct(productDetails) {
     console.log(productDetails);
     const product = {
-      name: productDetails["name"],
       productTypeId: productDetails["productTypeId"],
       manufacturingDate: productDetails["manufacturingDate"],
       expirationDate: productDetails["expirationDate"],
       isBatch: true, //productDetails["isBatch"],
       batchCount: productDetails["batchCount"],
-      composition: productDetails["composition"],
     };
     console.log(product);
 
@@ -151,10 +143,7 @@ function App() {
   async function createProduct(data) {
     console.log("createProductData", data);
 
-    await _supplyChainContract.createProduct(
-      data["recepieId"],
-      data["resultName"]
-    );
+    await _supplyChainContract.createProduct(data["recepieId"]);
   }
 
   async function addUser(userDetails) {
@@ -252,7 +241,6 @@ function App() {
             createProduct(e);
           }}
         />
-        <ProductTable items={newProducts} />
         <ProductTypeTable items={newProductTypes} />
         <RecepieTable items={recepieList} />
       </Box>

@@ -23,8 +23,8 @@ class SupplyChainContract {
     await this.supplyChainContract.addProduct(productType);
   }
 
-  async createProduct(recepieId, resultName) {
-    await this.supplyChainContract.createProduct(recepieId, resultName);
+  async createProduct(recepieId) {
+    await this.supplyChainContract.createProduct(recepieId);
   }
 
   async addUser(user) {

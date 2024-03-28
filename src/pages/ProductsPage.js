@@ -1,42 +1,51 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+import { useState, useEffect } from "react";
+import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import AppCard from "../components/AppCard";
 import ProductsGrid from "../components/ProductsGrid";
+import ProductsContract from "../contracts/ProductsContract";
+import RecepieCard from "../components/RecepieCard";
 
 function ProductsPage() {
+  const _productsContract = new ProductsContract();
+  const [products, setProducts] = useState();
+  const [recepies, setRecepies] = useState();
+
+  async function loadBlockChainData() {
+    let _products = await _productsContract.getProductList(
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+    );
+    let _recepies = await _productsContract.getRecepieList();
+    setProducts(_products);
+    setRecepies(_recepies);
+  }
+
+  useEffect(() => {
+    loadBlockChainData();
+  }, []);
+
   const items = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <div>
-      Products page
+      {/* Products page */}
+
+      <Typography gutterBottom variant="h5" component="div">
+        {"Recepies"}
+      </Typography>
       <Grid container spacing={3}>
-        {items.map((item) => {
+        {recepies?.map((recepie) => {
           return (
-            <Grid item xs={3} key={item}>
-              <AppCard
-                title={"Recepie Title (#" + item + ")"}
-                body={`Recepie details about the\n\ncomponents\n and quantities required`}
-                actionTitle1="View products"
-                actionTitle2="Create product"
-              ></AppCard>
+            <Grid item xs={5} key={recepie.id}>
+              <RecepieCard recepie={recepie} />
             </Grid>
           );
         })}
       </Grid>
-      <ProductsGrid
-        products={[
-          {
-            name: "Name",
-            productTypeId: 1,
-            barcodeId: "383281312838",
-            manufacturerName: "Man name",
-            batchCount: 12,
-            manufacturingDate: "Today",
-            expirationDate: "1Week",
-          },
-        ]}
-      ></ProductsGrid>
+      <Typography gutterBottom variant="h5" component="div">
+        {"My Product Stock"}
+      </Typography>
+      <ProductsGrid products={products} />
+      {/*<ProductTable items={newProducts} /> */}
     </div>
   );
 }

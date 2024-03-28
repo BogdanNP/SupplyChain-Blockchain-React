@@ -21,16 +21,6 @@ function AddProductForm(props) {
       <h4>Create Primary Product</h4>
       <form onSubmit={handleSubmit}>
         <label>
-          Product Name:
-          <input
-            type="text"
-            name="name"
-            value={inputs.name || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
           Product Type Id:
           <input
             type="number"
@@ -70,17 +60,6 @@ function AddProductForm(props) {
           />
         </label>
         <br />
-        <label>
-          Composition:
-          <input
-            type="text"
-            name="composition"
-            value={inputs.composition || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-
         <input type="submit" />
       </form>
     </div>

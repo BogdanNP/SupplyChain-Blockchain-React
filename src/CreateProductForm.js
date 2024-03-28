@@ -1,5 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 function CreateProductForm(props) {
   const [inputs, setInputs] = useState("");
@@ -20,27 +23,20 @@ function CreateProductForm(props) {
     <div>
       <h4>Create Product</h4>
       <form onSubmit={handleSubmit}>
-        <label>
-          Recepie Id:
-          <input
-            type="number"
-            name="recepieId"
-            value={inputs.recepieId || ""}
-            onChange={handleChange}
-          />
-        </label>
+        {/* <label> */}
+        {/* Recepie Id: */}
+        <TextField
+          type="number"
+          name="recepieId"
+          id="outlined-basic"
+          label="Recepie Id"
+          variant="outlined"
+          value={inputs.recepieId || ""}
+          onChange={handleChange}
+        />
+        {/* </label> */}
         <br />
-        <label>
-          Product Name:
-          <input
-            type="text"
-            name="resultName"
-            value={inputs.resultName || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <input type="submit" />
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
