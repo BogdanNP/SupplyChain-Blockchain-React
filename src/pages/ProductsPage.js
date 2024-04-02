@@ -5,6 +5,7 @@ import AppCard from "../components/AppCard";
 import ProductsGrid from "../components/ProductsGrid";
 import ProductsContract from "../contracts/ProductsContract";
 import RecepieCard from "../components/RecepieCard";
+import ProductTable from "../ProductTable";
 
 function ProductsPage() {
   const _productsContract = new ProductsContract();
@@ -45,7 +46,7 @@ function ProductsPage() {
         {"My Product Stock"}
       </Typography>
       <ProductsGrid products={products} />
-      {/*<ProductTable items={newProducts} /> */}
+      <ProductTable items={products} />
     </div>
   );
 }

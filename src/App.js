@@ -240,6 +240,7 @@ function App() {
           onSubmit={(e) => {
             createProduct(e);
           }}
+          recepieList={recepieList}
         />
         <ProductTypeTable items={newProductTypes} />
         <RecepieTable items={recepieList} />

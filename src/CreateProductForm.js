@@ -1,43 +1,48 @@
 import React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function CreateProductForm(props) {
   const [inputs, setInputs] = useState("");
 
   const handleChange = (event) => {
-    const name = event.target.name;
     const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputs({ recepieId: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
+  const handleSubmit = () => {
     props.onSubmit(inputs);
   };
 
   return (
     <div>
       <h4>Create Product</h4>
-      <form onSubmit={handleSubmit}>
-        {/* <label> */}
-        {/* Recepie Id: */}
-        <TextField
-          type="number"
-          name="recepieId"
-          id="outlined-basic"
-          label="Recepie Id"
-          variant="outlined"
-          value={inputs.recepieId || ""}
-          onChange={handleChange}
-        />
-        {/* </label> */}
-        <br />
-        <Button type="submit">Submit</Button>
-      </form>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Recepie</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={inputs.recepieId}
+            label="Recepie"
+            onChange={handleChange}
+          >
+            {props.recepieList?.map((recepie) => (
+              <MenuItem value={recepie.id.toString()}>
+                {recepie.resultTypeName.toString()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button variant="contained" onClick={handleSubmit}>
+          Create Product
+        </Button>
+      </Box>
     </div>
   );
 }
