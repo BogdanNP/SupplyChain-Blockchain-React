@@ -17,9 +17,12 @@ class UsersContract {
       method: "eth_requestAccounts",
     });
     const user = this.usersContract.users(accounts[0]);
-    console.log("USER", user);
-
     return user;
+  }
+
+  async getUsersCount() {
+    const count = await this.usersContract.usersCount();
+    return count;
   }
 }
 

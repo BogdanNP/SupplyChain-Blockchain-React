@@ -28,12 +28,15 @@ function CreateProductForm(props) {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={inputs.recepieId}
+            value={inputs.recepieId ?? ""}
             label="Recepie"
             onChange={handleChange}
           >
             {props.recepieList?.map((recepie) => (
-              <MenuItem value={recepie.id.toString()}>
+              <MenuItem
+                value={recepie.id.toString()}
+                key={recepie.id.toString()}
+              >
                 {recepie.resultTypeName.toString()}
               </MenuItem>
             ))}

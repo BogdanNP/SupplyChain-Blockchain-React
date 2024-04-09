@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Routes, Route, Link } from "react-router-dom";
-import { userRoleFromString } from "./UserRoles";
 import "./App.css";
 // import Web3 from "web3";
 
@@ -19,40 +18,21 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 // pages
 import ProfilePage from "./pages/ProfilePage";
+import MyStockPage from "./pages/MyStockPage";
 import ProductsPage from "./pages/ProductsPage";
+import RecepiesPage from "./pages/RecepiesPage";
 import DashboardPage from "./pages/DashboardPage";
 import TrackingPage from "./pages/TrackingPage";
-// components
-import RecepieTable from "./RecepieTable";
-import AddProductTypeForm from "./AddProductTypeForm";
-import AddProductForm from "./AddProductForm";
-import CreateProductForm from "./CreateProductForm";
-import AddUserForm from "./AddUserForm";
-import FindUserForm from "./FindUserForm";
-import UserDetails from "./UserDetails";
-import ProductTypeTable from "./ProductTypeTable";
-/*
-  How should things happen:
-  * Connect => save user state
-  * 
-  * 
-*/
+import CompaniesPage from "./pages/CompaniesPage";
+
 function App() {
   const [contractUsers, setContractUsers] = useState();
-  const [recepieList, setRecepieList] = useState([]);
-  const [usersCount, setUsersCount] = useState(0);
-  const [foundUser, setFoundUser] = useState();
-  const [newProducts, setNewProducts] = useState([]);
-  const [newProductTypes, setNewProductTypes] = useState([]);
 
   var _productsContract = new ProductsContract();
   var _usersContract = new UsersContract();
   const _supplyChainContract = new SupplyChainContract();
 
   const navigate = useNavigate();
-  const goToProfile = () => {
-    navigate("/profile");
-  };
 
   async function loadBlockChainData() {
     // console.log(accounts);
@@ -64,10 +44,6 @@ function App() {
 
     // setContractProducts(productsContract);
 
-    // const _usersCount = await _usersContract.getUsersCount();
-    // .methods
-    // .call();
-    // setUsersCount(_usersCount);
     const _user = await _usersContract.getCurrentUser();
     // console.log("User:", _user);
 
@@ -103,74 +79,18 @@ function App() {
 
   async function loadProductsData(_user) {
     const productTypeEvents = await _productsContract.getProductTypeList();
-    setNewProductTypes(productTypeEvents);
     console.log("productTypeEvents", productTypeEvents);
-
-    const productListEvents = await _productsContract.getProductEvents();
 
     const recepieEvents = await _productsContract.getRecepieEvents();
     console.log("recepieEvents", recepieEvents);
 
     const recepieCounter = await _productsContract.getRecepieCounter();
     console.log("recepieCounter", recepieCounter);
-
-    const _recepieList = await _productsContract.getRecepieList();
-    setRecepieList(_recepieList);
-    // console.log("recepieList", _recepieList);
-  }
-
-  async function addProductType(productTypeDetails) {
-    console.log(productTypeDetails);
-    const productType = {
-      name: productTypeDetails["name"],
-      details: productTypeDetails["details"],
-    };
-    await _supplyChainContract.addProductType(productType);
-  }
-  async function addProduct(productDetails) {
-    console.log(productDetails);
-    const product = {
-      productTypeId: productDetails["productTypeId"],
-      manufacturingDate: productDetails["manufacturingDate"],
-      expirationDate: productDetails["expirationDate"],
-      isBatch: true, //productDetails["isBatch"],
-      batchCount: productDetails["batchCount"],
-    };
-    console.log(product);
-
-    await _supplyChainContract.addProduct(product);
-  }
-  async function createProduct(data) {
-    console.log("createProductData", data);
-
-    await _supplyChainContract.createProduct(data["recepieId"]);
-  }
-
-  async function addUser(userDetails) {
-    console.log(userDetails);
-    const newUser = {
-      id: userDetails["address"],
-      name: userDetails["name"],
-      email: userDetails["email"],
-      role: userRoleFromString(userDetails["role"]),
-    };
-    await _supplyChainContract.addUser(newUser);
-  }
-
-  async function findUser(userAddress) {
-    const _address = userAddress["address"];
-    const _foundUser = await contractUsers.users(_address);
-    setFoundUser(_foundUser);
   }
 
   useEffect(() => {
     loadBlockChainData();
   }, []);
-
-  let foundUserDetails;
-  if (foundUser !== undefined) {
-    foundUserDetails = <UserDetails user={foundUser} />;
-  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -187,11 +107,38 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Button color="inherit">Connect</Button>
-          <Button color="inherit">Dashboard</Button>
-          <Button color="inherit" onClick={goToProfile}>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
+            Dashboard
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
             Profile
           </Button>
-          <Button color="inherit">Companies</Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/companies");
+            }}
+          >
+            Companies
+          </Button>{" "}
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/my_stock");
+            }}
+          >
+            MY STOCK
+          </Button>
           <Button
             color="inherit"
             onClick={() => {
@@ -200,50 +147,36 @@ function App() {
           >
             Products
           </Button>
-          <Button color="inherit">Track</Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/recepies");
+            }}
+          >
+            Recepies
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/track");
+            }}
+          >
+            Track
+          </Button>
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ p: 3 }}>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/my_stock" element={<MyStockPage />} />
+          <Route path="/companies" element={<CompaniesPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/recepies" element={<RecepiesPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/track" element={<TrackingPage />} />
           <Route path="*" element={<div>No Page</div>} />
         </Routes>
-
-        <p> {"Contract users: " + usersCount}</p>
-        {/* <h4> {"Connected account: " + user.id}</h4> */}
-        <AddUserForm
-          onSubmit={(e) => {
-            addUser(e);
-          }}
-        />
-        <FindUserForm
-          onSubmit={(e) => {
-            findUser(e);
-          }}
-        />
-        {foundUserDetails}
-        <AddProductTypeForm
-          onSubmit={(e) => {
-            addProductType(e);
-          }}
-        />
-        <AddProductForm
-          onSubmit={(e) => {
-            addProduct(e);
-          }}
-        />
-        <CreateProductForm
-          onSubmit={(e) => {
-            createProduct(e);
-          }}
-          recepieList={recepieList}
-        />
-        <ProductTypeTable items={newProductTypes} />
-        <RecepieTable items={recepieList} />
       </Box>
     </Box>
   );

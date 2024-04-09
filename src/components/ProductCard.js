@@ -28,7 +28,13 @@ function ProductCard(props) {
         <Typography variant="body2" color="text.secondary">
           {"Expiration date:" + props.product.expirationDate}
         </Typography>
-        <Barcode value={props.product.barcodeId} />
+        <Barcode
+          value={props.product.barcodeId}
+          // format="EAN13"
+          height={30}
+          fontSize={16}
+          margin={0}
+        />{" "}
         <CardActions>
           <Button
             size="small"

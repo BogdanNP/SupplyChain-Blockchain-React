@@ -84,6 +84,18 @@ class ProductsContract {
     }
     return productList;
   }
+
+  async parentProducts(barcodeId) {
+    const product = await this.productsContract.products(barcodeId);
+    const productType = await this.productsContract.productTypes(
+      product.productTypeId
+    );
+    const parentProducts = await this.productsContract.parentProducts(
+      barcodeId.toString(),
+      0
+    );
+    console.log("parentProducts", parentProducts);
+  }
 }
 
 export default ProductsContract;

@@ -27,7 +27,6 @@ function ProductTable(props) {
 
   return (
     <div className="ProductTable">
-      <h4>Product Table</h4>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -55,7 +54,7 @@ function ProductTable(props) {
                 <TableCell>
                   {item.manufacturerId.substring(0, 10) + "..."}
                 </TableCell>
-                <TableCell>{item.isBatch}</TableCell>
+                <TableCell>{item.isBatch.toString()}</TableCell>
                 <TableCell>{item.batchCount}</TableCell>
                 <TableCell>{item.manufacturingDate.toString()}</TableCell>
                 <TableCell>{item.expirationDate.toString()}</TableCell>
