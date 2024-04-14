@@ -30,6 +30,15 @@ class SupplyChainContract {
   async addUser(user) {
     await this.supplyChainContract.addUser(user);
   }
+
+  async createSellRequest(buyerId, barcodeId, currentTime, quantity) {
+    await this.supplyChainContract.createSellRequest(
+      buyerId,
+      barcodeId,
+      currentTime,
+      quantity
+    );
+  }
 }
 
 export default SupplyChainContract;

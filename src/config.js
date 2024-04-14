@@ -4,6 +4,8 @@ export const CONTRACT_ADDRESS_USERS =
   "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 export const CONTRACT_ADDRESS_PRODUCTS =
   "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+export const CONTRACT_ADDRESS_OBJECT_TRANSFERS =
+  "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
 
 export const CONTRACT_ABI_SUPPLYCHAIN = [
   {
@@ -21,6 +23,34 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
     ],
     stateMutability: "nonpayable",
     type: "constructor",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "sellerId_",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "barcodeId_",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "currentTime_",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "acceptSell",
+        type: "bool",
+      },
+    ],
+    name: "acceptSellRequest",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
     inputs: [
@@ -131,6 +161,34 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
       },
     ],
     name: "createProduct",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "buyerId_",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "barcodeId_",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "currentTime_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
+      },
+    ],
+    name: "createSellRequest",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -421,6 +479,49 @@ export const CONTRACT_ABI_PRODUCTS = [
         name: "expDateEpoch",
         type: "uint256",
       },
+      {
+        indexed: false,
+        internalType: "string[]",
+        name: "parentProducts",
+        type: "string[]",
+      },
+    ],
+    name: "ComposedProduct",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "manufacturerName",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "barcodeId",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "manDateEpoch",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "expDateEpoch",
+        type: "uint256",
+      },
     ],
     name: "NewProduct",
     type: "event",
@@ -467,6 +568,49 @@ export const CONTRACT_ABI_PRODUCTS = [
       },
     ],
     name: "NewRecepie",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "transferId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "receiver",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "barcodeId",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "enum Types.ObjectStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "ObjectTransferred",
     type: "event",
   },
   {
@@ -584,83 +728,6 @@ export const CONTRACT_ABI_PRODUCTS = [
     ],
     name: "ProductOwnershipTransferResponse",
     type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "barcodeId_",
-        type: "string",
-      },
-      {
-        components: [
-          {
-            internalType: "enum Types.UserRole",
-            name: "role",
-            type: "uint8",
-          },
-          {
-            internalType: "address",
-            name: "id",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "email",
-            type: "string",
-          },
-        ],
-        internalType: "struct Types.UserDetails",
-        name: "buyer_",
-        type: "tuple",
-      },
-      {
-        components: [
-          {
-            internalType: "enum Types.UserRole",
-            name: "role",
-            type: "uint8",
-          },
-          {
-            internalType: "address",
-            name: "id",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "email",
-            type: "string",
-          },
-        ],
-        internalType: "struct Types.UserDetails",
-        name: "seller_",
-        type: "tuple",
-      },
-      {
-        internalType: "uint256",
-        name: "currentTime_",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "acceptSell",
-        type: "bool",
-      },
-    ],
-    name: "_acceptSellRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
   },
   {
     inputs: [
@@ -885,78 +952,76 @@ export const CONTRACT_ABI_PRODUCTS = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "barcodeId_",
-        type: "string",
-      },
-      {
-        components: [
-          {
-            internalType: "enum Types.UserRole",
-            name: "role",
-            type: "uint8",
-          },
-          {
-            internalType: "address",
-            name: "id",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "email",
-            type: "string",
-          },
-        ],
-        internalType: "struct Types.UserDetails",
-        name: "buyer_",
-        type: "tuple",
-      },
-      {
-        components: [
-          {
-            internalType: "enum Types.UserRole",
-            name: "role",
-            type: "uint8",
-          },
-          {
-            internalType: "address",
-            name: "id",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "email",
-            type: "string",
-          },
-        ],
-        internalType: "struct Types.UserDetails",
-        name: "seller_",
-        type: "tuple",
-      },
-      {
         internalType: "uint256",
-        name: "currentTime_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "quantity_",
+        name: "_transferId",
         type: "uint256",
       },
     ],
-    name: "_createSellRequest",
+    name: "acceptTransfer",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "accountTransferCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "accountTransfers",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_transferId",
+        type: "uint256",
+      },
+    ],
+    name: "getTransferStatus",
+    outputs: [
+      {
+        internalType: "enum Types.ObjectStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -1099,6 +1164,16 @@ export const CONTRACT_ABI_PRODUCTS = [
         name: "batchCount",
         type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "recepieId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "ingredientsCount",
+        type: "uint256",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -1192,24 +1267,94 @@ export const CONTRACT_ABI_PRODUCTS = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_transferId",
+        type: "uint256",
+      },
+    ],
+    name: "refuseTransfer",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_barcodeId",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_quantity",
+        type: "uint256",
+      },
+      {
         internalType: "address",
-        name: "sellerId_",
+        name: "_receiver",
+        type: "address",
+      },
+    ],
+    name: "requestTransfer",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "transferCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "transfers",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "sender",
         type: "address",
       },
       {
         internalType: "address",
-        name: "buyerId_",
+        name: "receiver",
         type: "address",
       },
       {
         internalType: "string",
-        name: "barcodeId_",
+        name: "barcodeId",
         type: "string",
       },
+      {
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
+      },
+      {
+        internalType: "enum Types.ObjectStatus",
+        name: "status",
+        type: "uint8",
+      },
     ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -1237,3 +1382,5 @@ export const CONTRACT_ABI_PRODUCTS = [
     type: "function",
   },
 ];
+
+export const CONTRACT_ABI_OBJECT_TRANSFERS = [];

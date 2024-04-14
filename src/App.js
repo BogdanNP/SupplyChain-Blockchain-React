@@ -24,6 +24,7 @@ import RecepiesPage from "./pages/RecepiesPage";
 import DashboardPage from "./pages/DashboardPage";
 import TrackingPage from "./pages/TrackingPage";
 import CompaniesPage from "./pages/CompaniesPage";
+import SellProductPage from "./pages/SellProductPage";
 
 function App() {
   const [contractUsers, setContractUsers] = useState();
@@ -175,6 +176,7 @@ function App() {
           <Route path="/recepies" element={<RecepiesPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/track" element={<TrackingPage />} />
+          <Route path="/sell_product" element={<SellProductPage />} />
           <Route path="*" element={<div>No Page</div>} />
         </Routes>
       </Box>

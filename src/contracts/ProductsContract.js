@@ -5,6 +5,7 @@ import { Recepie } from "../models/Recepie";
 import { RecepieIngredient } from "../models/RecepieIngredient";
 import { ProductType } from "../models/ProductType";
 import { Product } from "../models/Product";
+import { ComposedProductEvent } from "../models/ComposedProductEvent";
 
 class ProductsContract {
   constructor() {
@@ -24,11 +25,14 @@ class ProductsContract {
     return productTypeEvents.map((e) => e["args"]);
   }
 
-  async getProductEvents() {
-    const productEvents = await this.productsContract.queryFilter("NewProduct");
-    // TODO: maybe convert data to model?
-    return productEvents.map((e) => e["args"]);
+  async getComposedProductEvents() {
+    const productEvents = await this.productsContract.queryFilter(
+      "ComposedProduct"
+    );
+    return productEvents.map((e) => new ComposedProductEvent(e["args"]));
   }
+
+  async trackComposedProductEvents(barcodeId) {}
 
   async getRecepieEvents() {
     const recepieEvents = await this.productsContract.queryFilter("NewRecepie");
@@ -66,15 +70,10 @@ class ProductsContract {
   }
 
   async getProductList(userId) {
-    console.log("userId", userId);
-
     const productCounter = await this.productsContract.productCounter(userId);
-    console.log("productCounter", productCounter.toNumber());
-
-    // console.log("productCounter", productCounter.toNumber());
 
     let productList = [];
-    for (let i = 0; i < productCounter; i++) {
+    for (let i = 0; i < productCounter + 2; i++) {
       const userLinkedProduct = await this.productsContract.userLinkedProducts(
         userId,
         i
@@ -85,16 +84,72 @@ class ProductsContract {
     return productList;
   }
 
+  async getProduct(barcodeId) {
+    const product = await this.productsContract.products(barcodeId);
+    return product;
+  }
+
+  async trackProduct(barcodeId) {
+    const product = await this.getProduct(barcodeId);
+    const parentProducts = await this.parentProducts(barcodeId);
+    return { product: product, parents: parentProducts };
+  }
+
   async parentProducts(barcodeId) {
     const product = await this.productsContract.products(barcodeId);
-    const productType = await this.productsContract.productTypes(
-      product.productTypeId
-    );
-    const parentProducts = await this.productsContract.parentProducts(
-      barcodeId.toString(),
-      0
-    );
-    console.log("parentProducts", parentProducts);
+    const ingredientsCount = product.ingredientsCount;
+    var parentProductList = [];
+    for (var i = 0; i < ingredientsCount; ++i) {
+      const _parentBarcode = await this.productsContract.parentProducts(
+        barcodeId.toString(),
+        i
+      );
+      const _parentProducts = await this.parentProducts(_parentBarcode);
+      const _product = await this.productsContract.products(_parentBarcode);
+      parentProductList.push({
+        product: new Product(_product),
+        parents: _parentProducts,
+      });
+    }
+    return parentProductList;
+  }
+
+  async requestTransfer(barcodeId, quantity, receiver) {
+    await this.productsContract.requestTransfer(barcodeId, quantity, receiver);
+  }
+
+  async transfers() {
+    const transferCount = await this.productsContract.transferCount();
+    var transferList = [];
+    for (let i = 0; i < transferCount.toNumber(); ++i) {
+      const transfer = await this.productsContract.transfers(0);
+      transferList.push(transfer);
+    }
+    return transferList;
+  }
+
+  async accountTransfers(id) {
+    const accountTransferCount =
+      await this.productsContract.accountTransferCount(id);
+    var transferList = [];
+    for (let i = 0; i < accountTransferCount.toNumber(); ++i) {
+      const transferId = await this.productsContract.accountTransfers(id, i);
+      const transfer = await this.productsContract.transfers(transferId);
+      transferList.push(transfer);
+    }
+    return transferList;
+  }
+
+  async acceptTransfer(transferId) {
+    await this.productsContract.acceptTransfer(transferId);
+  }
+
+  async refuseTransfer(transferId) {
+    await this.productsContract.refuseTransfer(transferId);
+  }
+
+  async getTransferStatus(transferId) {
+    await this.productsContract.getTransferStatus(transferId);
   }
 }
 
