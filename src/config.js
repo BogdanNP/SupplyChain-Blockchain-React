@@ -614,122 +614,6 @@ export const CONTRACT_ABI_PRODUCTS = [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "manufacurerName",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "barcodeId",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "buyerName",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "buyerEmail",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "sellerName",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "sellerEmail",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "requestTime",
-        type: "uint256",
-      },
-    ],
-    name: "ProductOwnershipTransferRequest",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "manufacurerName",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "barcodeId",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "buyerName",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "buyerEmail",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "sellerName",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "sellerEmail",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "responseTime",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "status",
-        type: "string",
-      },
-    ],
-    name: "ProductOwnershipTransferResponse",
-    type: "event",
-  },
-  {
     inputs: [
       {
         components: [
@@ -1155,16 +1039,6 @@ export const CONTRACT_ABI_PRODUCTS = [
         type: "uint256",
       },
       {
-        internalType: "bool",
-        name: "isBatch",
-        type: "bool",
-      },
-      {
-        internalType: "uint256",
-        name: "batchCount",
-        type: "uint256",
-      },
-      {
         internalType: "uint256",
         name: "recepieId",
         type: "uint256",
@@ -1301,6 +1175,25 @@ export const CONTRACT_ABI_PRODUCTS = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "stockItemCounter",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "transferCount",
     outputs: [
@@ -1370,12 +1263,17 @@ export const CONTRACT_ABI_PRODUCTS = [
         type: "uint256",
       },
     ],
-    name: "userLinkedProducts",
+    name: "userLinkedStockItems",
     outputs: [
       {
         internalType: "string",
-        name: "",
+        name: "barcodeId",
         type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

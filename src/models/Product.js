@@ -6,10 +6,9 @@ export class Product {
   manufacturerId = undefined;
   manufacturingDate = undefined;
   expirationDate = undefined;
-  isBatch = undefined;
-  batchCount = undefined;
+  quantity = undefined;
 
-  constructor(product) {
+  constructor(product, quantity) {
     this.name = product.name;
     this.productTypeId = product.productTypeId?.toNumber();
     this.barcodeId = product.barcodeId;
@@ -17,7 +16,6 @@ export class Product {
     this.manufacturerId = product.manufacturerId;
     this.manufacturingDate = product.manufacturingDate;
     this.expirationDate = product.expirationDate;
-    this.isBatch = product.isBatch;
-    this.batchCount = product.batchCount?.toNumber();
+    this.quantity = quantity ?? 0;
   }
 }

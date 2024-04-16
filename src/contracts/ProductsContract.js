@@ -8,6 +8,8 @@ import { Product } from "../models/Product";
 import { ComposedProductEvent } from "../models/ComposedProductEvent";
 
 class ProductsContract {
+  // TODO: handle errors !!!
+  // Maybe add UIModel??? Data, Loading, Error ???
   constructor() {
     const _provider = new ethers.providers.Web3Provider(window.ethereum);
     this.productsContract = new ethers.Contract(
@@ -70,16 +72,21 @@ class ProductsContract {
   }
 
   async getProductList(userId) {
-    const productCounter = await this.productsContract.productCounter(userId);
-
+    const stockItemCounter = await this.productsContract.stockItemCounter(
+      userId
+    );
+    console.log("stockItemCounter", stockItemCounter.toNumber());
     let productList = [];
-    for (let i = 0; i < productCounter + 2; i++) {
-      const userLinkedProduct = await this.productsContract.userLinkedProducts(
-        userId,
-        i
+    for (let i = 0; i < stockItemCounter.toNumber(); i++) {
+      const userLinkedStockItem =
+        await this.productsContract.userLinkedStockItems(userId, i);
+      console.log("userLinkedStockItem", userLinkedStockItem);
+      let product = await this.productsContract.products(
+        userLinkedStockItem.barcodeId.toString() ?? ""
       );
-      let product = await this.productsContract.products(userLinkedProduct);
-      productList.push(new Product(product));
+      productList.push(
+        new Product(product, userLinkedStockItem?.quantity.toNumber())
+      );
     }
     return productList;
   }

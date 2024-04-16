@@ -96,7 +96,8 @@ function SellProductPage() {
       <div>
         My Transfers
         <br />
-        sender | receiver | description | status(0 = P, 1 = A, 2 = R)
+        id | sender | receiver | barcodeId | quantity | status(0 = P, 1 = A, 2 =
+        R)
         {accountTransfers?.map((transfer, index) => (
           <div key={index}>
             {transfer.id.toNumber()} | {transfer.sender.substring(0, 10)} |{" "}
