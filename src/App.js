@@ -80,13 +80,13 @@ function App() {
 
   async function loadProductsData(_user) {
     const productTypeEvents = await _productsContract.getProductTypeList();
-    console.log("productTypeEvents", productTypeEvents);
+    // console.log("productTypeEvents", productTypeEvents);
 
     const recepieEvents = await _productsContract.getRecepieEvents();
-    console.log("recepieEvents", recepieEvents);
+    // console.log("recepieEvents", recepieEvents);
 
     const recepieCounter = await _productsContract.getRecepieCounter();
-    console.log("recepieCounter", recepieCounter);
+    // console.log("recepieCounter", recepieCounter);
   }
 
   useEffect(() => {

@@ -54,7 +54,10 @@ class ProductsContract {
       let ingredients = [];
       for (let j = 0; j < recepie.ingredientsCount.toNumber(); ++j) {
         let ingredient = await this.productsContract.recepieIngredients(i, j);
-        ingredients.push(new RecepieIngredient(ingredient));
+        let productType = await this.productsContract.productTypes(
+          ingredient.productTypeId
+        );
+        ingredients.push(new RecepieIngredient(ingredient, productType));
       }
       recepies.push(new Recepie(recepie, ingredients));
     }
@@ -80,7 +83,6 @@ class ProductsContract {
     for (let i = 0; i < stockItemCounter.toNumber(); i++) {
       const userLinkedStockItem =
         await this.productsContract.userLinkedStockItems(userId, i);
-      console.log("userLinkedStockItem", userLinkedStockItem);
       let product = await this.productsContract.products(
         userLinkedStockItem.barcodeId.toString() ?? ""
       );

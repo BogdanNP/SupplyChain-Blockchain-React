@@ -13,7 +13,7 @@ function CompaniesPage() {
   const [foundUser, setFoundUser] = useState();
 
   async function addUser(userDetails) {
-    console.log(userDetails);
+    // console.log(userDetails);
     const newUser = {
       id: userDetails["address"],
       name: userDetails["name"],

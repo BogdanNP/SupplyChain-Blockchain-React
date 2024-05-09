@@ -21,7 +21,7 @@ function CreateProductForm(props) {
 
   return (
     <div>
-      <h4>Create Product</h4>
+      <h4>Use Recepie</h4>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Recepie</InputLabel>
@@ -42,8 +42,10 @@ function CreateProductForm(props) {
             ))}
           </Select>
         </FormControl>
+        <br />
+        <br />
         <Button variant="contained" onClick={handleSubmit}>
-          Create Product
+          Submit
         </Button>
       </Box>
     </div>

@@ -12,7 +12,7 @@ function ProductTrackForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
     props.onSubmit(inputs);
   };
 

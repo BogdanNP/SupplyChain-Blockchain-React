@@ -21,7 +21,7 @@ function TrackingPage() {
     const _barcodeId = barcodeId["barcodeId"];
     const _productHistory = await _productsContract.trackProduct(_barcodeId);
     setProductHistory(_productHistory);
-    console.log(_productHistory);
+    // console.log(_productHistory);
   }
 
   return (

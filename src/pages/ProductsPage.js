@@ -15,7 +15,7 @@ function ProductsPage() {
     setProductTypes(_productTypes);
   }
   async function addProductType(productTypeDetails) {
-    console.log(productTypeDetails);
+    // console.log(productTypeDetails);
     const productType = {
       name: productTypeDetails["name"],
       details: productTypeDetails["details"],

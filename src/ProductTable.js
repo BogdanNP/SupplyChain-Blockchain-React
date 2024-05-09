@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Barcode from "react-barcode";
+import { toDateString } from "./utils/DateUtils";
 
 function ProductTable(props) {
   function createData(name, calories, fat, carbs, protein) {
@@ -46,8 +47,12 @@ function ProductTable(props) {
                   {item.manufacturerId.substring(0, 10) + "..."}
                 </TableCell>
                 <TableCell>{item.quantity ?? 0}</TableCell>
-                <TableCell>{item.manufacturingDate.toString()}</TableCell>
-                <TableCell>{item.expirationDate.toString()}</TableCell>
+                <TableCell>
+                  {toDateString(item.manufacturingDate.toNumber())}
+                </TableCell>
+                <TableCell>
+                  {toDateString(item.expirationDate.toNumber())}
+                </TableCell>
                 <TableCell>
                   <Barcode
                     value={item.barcodeId}

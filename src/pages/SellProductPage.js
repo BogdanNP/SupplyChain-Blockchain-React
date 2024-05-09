@@ -50,7 +50,7 @@ function SellProductPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
+    // console.log(inputs);
     _productsContract.requestTransfer(
       inputs["barcodeId"],
       inputs["quantity"],
