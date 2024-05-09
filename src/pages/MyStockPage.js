@@ -15,7 +15,6 @@ function MyStockPage() {
   const [productTypes, setProductTypes] = useState();
   const [products, setProducts] = useState();
   const [recepies, setRecepies] = useState();
-
   async function loadBlockChainData() {
     const _user = await _usersContract.getCurrentUser();
 

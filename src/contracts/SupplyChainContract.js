@@ -2,8 +2,8 @@ import {
   CONTRACT_ABI_SUPPLYCHAIN,
   CONTRACT_ADDRESS_SUPPLYCHAIN,
 } from "../config";
-
 import { ethers } from "ethers";
+import { decodeError } from "ethers-decode-error";
 
 class SupplyChainContract {
   constructor() {
@@ -16,28 +16,58 @@ class SupplyChainContract {
   }
 
   async addProductType(productType) {
-    await this.supplyChainContract.addProductType(productType);
+    try {
+      await this.supplyChainContract.addProductType(productType);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 
   async addProduct(productType) {
-    await this.supplyChainContract.addProduct(productType);
+    try {
+      await this.supplyChainContract.addProduct(productType);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 
   async createProduct(recepieId) {
-    await this.supplyChainContract.createProduct(recepieId);
+    try {
+      await this.supplyChainContract.createProduct(recepieId);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 
   async addUser(user) {
-    await this.supplyChainContract.addUser(user);
+    try {
+      await this.supplyChainContract.addUser(user);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 
   async createSellRequest(buyerId, barcodeId, currentTime, quantity) {
-    await this.supplyChainContract.createSellRequest(
-      buyerId,
-      barcodeId,
-      currentTime,
-      quantity
-    );
+    try {
+      await this.supplyChainContract.createSellRequest(
+        buyerId,
+        barcodeId,
+        currentTime,
+        quantity
+      );
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 }
 

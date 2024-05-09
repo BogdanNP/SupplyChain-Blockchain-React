@@ -1,6 +1,7 @@
 import { CONTRACT_ABI_USERS, CONTRACT_ADDRESS_USERS } from "../config";
 
 import { ethers } from "ethers";
+import { decodeError } from "ethers-decode-error";
 
 class UsersContract {
   constructor() {
@@ -13,16 +14,28 @@ class UsersContract {
   }
 
   async getCurrentUser() {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    const user = this.usersContract.users(accounts[0]);
-    return user;
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const user = this.usersContract.users(accounts[0]);
+      return user;
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 
   async getUsersCount() {
-    const count = await this.usersContract.usersCount();
-    return count;
+    try {
+      const count = await this.usersContract.usersCount();
+      return count;
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
   }
 }
 
