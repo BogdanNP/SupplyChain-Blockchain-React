@@ -19,12 +19,19 @@ function AddProductForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     let inputs = {
-      productTypeId: props.productTypes[productTypeIndex].id,
+      productTypeId: props.productTypes[productTypeIndex]?.id ?? null,
       manufacturingDate: manufacturingDate.toDate().getTime() / 1000,
       expirationDate: expirationDate.toDate().getTime() / 1000,
       batchCount: batchCount,
     };
-    props.onSubmit(inputs);
+    console.log(inputs);
+    if (inputs.productTypeId === null) {
+      alert("Please select product");
+    } else if (inputs.batchCount === undefined || inputs.batchCount < 0) {
+      alert("Please write a valid batch count");
+    } else {
+      props.onSubmit(inputs);
+    }
   };
 
   return (
@@ -69,6 +76,7 @@ function AddProductForm(props) {
         <br />
         <br />
         <TextField
+          type="number"
           label="Batch Count"
           value={batchCount ?? ""}
           onChange={(newValue) => setBatchCount(newValue.target.value)}
