@@ -1,3 +1,4 @@
+import { Button, TextField } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 
@@ -20,15 +21,20 @@ function ProductTrackForm(props) {
     <div>
       <h4>Track Product </h4>
       <form onSubmit={handleSubmit}>
-        <label>
-          Product Barcode:
-          <input
-            type="text"
-            name="barcodeId"
-            value={inputs.barcodeId || ""}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          type="text"
+          label="Barcode Id"
+          name="barcodeId"
+          value={inputs.barcodeId ?? ""}
+          onChange={handleChange}
+        ></TextField>
+        <br />
+        <br />
+        <Button variant="contained" onClick={handleSubmit}>
+          Submit
+        </Button>
+        <br />
+        <br />
       </form>
     </div>
   );

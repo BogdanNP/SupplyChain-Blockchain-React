@@ -6,6 +6,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import SimplePopup from "./SimplePopup";
+import RecepieCard from "./RecepieCard";
 
 function CreateProductForm(props) {
   const [inputs, setInputs] = useState("");
@@ -43,6 +45,14 @@ function CreateProductForm(props) {
           </Select>
         </FormControl>
         <br />
+        <br />
+        <SimplePopup buttonKey="View Recepie">
+          <RecepieCard
+            recepie={props.recepieList?.find(
+              (recepie) => recepie.id.toString() === inputs.recepieId
+            )}
+          ></RecepieCard>
+        </SimplePopup>
         <br />
         <Button variant="contained" onClick={handleSubmit}>
           Submit

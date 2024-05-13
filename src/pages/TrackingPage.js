@@ -6,16 +6,12 @@ import { toDateString } from "../utils/DateUtils";
 function TrackingPage() {
   const _productsContract = new ProductsContract();
 
-  const [productEventList, setProductEventList] = useState();
   const [productHistory, setProductHistory] = useState();
 
   useEffect(() => {
     loadBlockChainData();
   }, []);
-  async function loadBlockChainData() {
-    const productEvents = await _productsContract.getComposedProductEvents();
-    setProductEventList(productEvents);
-  }
+  async function loadBlockChainData() {}
 
   async function trackProducts(barcodeId) {
     const _barcodeId = barcodeId["barcodeId"];
@@ -37,21 +33,21 @@ function TrackingPage() {
 
 function ProductList(props) {
   if (props?.product === undefined) {
-    return <div>Search for a product</div>;
+    return <h6 style={{ fontSize: 18 }}>Search for a product</h6>;
   }
   if (props.product.name === "") {
-    return <div>Product not found</div>;
+    return <h6 style={{ fontSize: 18 }}>Product not found</h6>;
   }
 
-  // if (props.parents.length === 0) {
-  //   return <div>{props.product.name}</div>;
-  // }
   return (
     <div>
-      {props.product.name} | {props.product.manufacturerName} |{" "}
-      {toDateString(props.product.manufacturingDate.toNumber())} |{" "}
-      {toDateString(props.product.expirationDate.toNumber())} |{" "}
-      {props.product.barcodeId}
+      {" "}
+      <h6 style={{ fontSize: 18 }}>
+        {props.product.name} | {props.product.manufacturerName} |{" "}
+        {toDateString(props.product.manufacturingDate.toNumber())} |{" "}
+        {toDateString(props.product.expirationDate.toNumber())} |{" "}
+        {props.product.barcodeId}
+      </h6>
       <ul>
         {props.parents?.map((productData) => (
           <ProductList

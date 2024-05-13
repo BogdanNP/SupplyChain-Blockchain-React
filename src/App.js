@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 // pages
+import ConnectPage from "./pages/ConnectPage";
 import ProfilePage from "./pages/ProfilePage";
 import MyStockPage from "./pages/MyStockPage";
 import ProductsPage from "./pages/ProductsPage";
@@ -107,7 +108,14 @@ function App() {
           >
             <MenuIcon />
           </IconButton>
-          <Button color="inherit">Connect</Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/connect");
+            }}
+          >
+            Connect
+          </Button>
           <Button
             color="inherit"
             onClick={() => {
@@ -163,12 +171,21 @@ function App() {
             }}
           >
             Track
+          </Button>{" "}
+          <Button
+            color="inherit"
+            onClick={() => {
+              navigate("/transfers");
+            }}
+          >
+            Transfers
           </Button>
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ p: 3 }}>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
+          <Route path="/connect" element={<ConnectPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/my_stock" element={<MyStockPage />} />
           <Route path="/companies" element={<CompaniesPage />} />
@@ -176,7 +193,12 @@ function App() {
           <Route path="/recepies" element={<RecepiesPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/track" element={<TrackingPage />} />
-          <Route path="/sell_product" element={<SellProductPage />} />
+          <Route path="/transfers" element={<SellProductPage />} />
+          <Route path="/transfers/:barcodeId" element={<SellProductPage />} />
+          <Route
+            path="/transfers/:barcodeId/:quantity"
+            element={<SellProductPage />}
+          />
           <Route path="*" element={<div>No Page</div>} />
         </Routes>
       </Box>

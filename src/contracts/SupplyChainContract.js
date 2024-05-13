@@ -17,7 +17,8 @@ class SupplyChainContract {
 
   async addProductType(productType) {
     try {
-      await this.supplyChainContract.addProductType(productType);
+      const tx = await this.supplyChainContract.addProductType(productType);
+      this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -25,9 +26,10 @@ class SupplyChainContract {
     }
   }
 
-  async addProduct(productType) {
+  async addProduct(product) {
     try {
-      await this.supplyChainContract.addProduct(productType);
+      const tx = await this.supplyChainContract.addProduct(product);
+      return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -37,7 +39,8 @@ class SupplyChainContract {
 
   async createProduct(recepieId) {
     try {
-      await this.supplyChainContract.createProduct(recepieId);
+      const tx = await this.supplyChainContract.createProduct(recepieId);
+      this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -47,7 +50,8 @@ class SupplyChainContract {
 
   async addUser(user) {
     try {
-      await this.supplyChainContract.addUser(user);
+      const tx = await this.supplyChainContract.addUser(user);
+      this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -57,17 +61,28 @@ class SupplyChainContract {
 
   async createSellRequest(buyerId, barcodeId, currentTime, quantity) {
     try {
-      await this.supplyChainContract.createSellRequest(
+      const tx = await this.supplyChainContract.createSellRequest(
         buyerId,
         barcodeId,
         currentTime,
         quantity
       );
+      this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
       alert(contractError.error);
     }
+  }
+
+  async handleTransaction(transaction) {
+    console.log("transaction: ", transaction);
+    const transactionReceipt = await transaction.wait();
+    console.log("transactionReceipt: ", transactionReceipt);
+    if (transactionReceipt.status === 1) {
+      return transactionReceipt;
+    }
+    return undefined;
   }
 }
 

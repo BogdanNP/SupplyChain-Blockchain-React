@@ -4,6 +4,9 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 function RecepieCard(props) {
+  if (props.recepie === undefined) {
+    return <div></div>;
+  }
   return (
     <Card sx={{ maxWidth: 345 }} style={{ backgroundColor: "#F8F8F8" }}>
       <CardContent>

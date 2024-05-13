@@ -28,7 +28,7 @@ function AddProductForm(props) {
     if (inputs.productTypeId === null) {
       alert("Please select product");
     } else if (inputs.batchCount === undefined || inputs.batchCount < 0) {
-      alert("Please write a valid batch count");
+      alert("Please enter a valid batch count");
     } else {
       props.onSubmit(inputs);
     }

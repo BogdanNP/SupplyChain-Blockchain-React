@@ -18,8 +18,39 @@ class UsersContract {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      const user = this.usersContract.users(accounts[0]);
+      return this.getUser(accounts[0]);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
+  }
+
+  async getUser(address) {
+    try {
+      const user = await this.usersContract.get(address);
       return user;
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError);
+    }
+  }
+
+  async getUserList() {
+    try {
+      const currentUser = await this.getCurrentUser();
+      const count = await this.usersContract.usersCount();
+
+      let userList = [];
+      for (let i = 0; i < count; ++i) {
+        const userAddress = await this.usersContract.usersByIndex(i);
+        if (userAddress !== currentUser.id) {
+          const user = await this.getUser(userAddress);
+          userList.push(user);
+        }
+      }
+      return userList;
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -31,6 +62,21 @@ class UsersContract {
     try {
       const count = await this.usersContract.usersCount();
       return count;
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
+  }
+
+  async register(user) {
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      let userDetails = user;
+      userDetails.id = accounts[0];
+      await this.usersContract._register(userDetails, accounts[0]);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);

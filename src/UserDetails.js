@@ -6,7 +6,7 @@ function UserDetails(props) {
   return (
     <div>
       <Typography gutterBottom variant="h5" component="div">
-        Your details:
+        Account details:
       </Typography>{" "}
       <Typography gutterBottom variant="body1" component="div">
         Name: {props.user?.name}

@@ -8,11 +8,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Barcode from "react-barcode";
 import { toDateString } from "./utils/DateUtils";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function ProductTable(props) {
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
+  const navigate = useNavigate();
 
   if (props.items === undefined) {
     return <div></div>;
@@ -32,6 +32,7 @@ function ProductTable(props) {
               <TableCell> Man. Date</TableCell>
               <TableCell> Exp. Date</TableCell>
               <TableCell> Barcode</TableCell>
+              <TableCell> Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -62,41 +63,20 @@ function ProductTable(props) {
                     margin={0}
                   ></Barcode>
                 </TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => {
+                      navigate(`/transfers/${item.barcodeId}/${item.quantity}`);
+                    }}
+                  >
+                    Sell
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Barcode</th>
-            <th>Product Name</th>
-            <th>Product Type Id</th>
-            <th>Manufacturer Name</th>
-            <th>Manufacturer Id</th>
-            <th>Is batch</th>
-            <th>Batch Count</th>
-            <th>Man. Date</th>
-            <th>Exp. Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.items.map((item) => (
-            <tr key={item.barcodeId}>
-              <td>{item.barcodeId}</td>
-              <td>{item.name}</td>
-              <td>{item.productTypeId}</td>
-              <td>{item.manufacturerName}</td>
-              <td>{item.manufacturerId}</td>
-              <td>{item.isBatch}</td>
-              <td>{item.batchCount}</td>
-              <td>{item.manufacturingDate.toString()}</td>
-              <td>{item.expirationDate.toString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
     </div>
   );
 }

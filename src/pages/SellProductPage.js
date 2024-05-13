@@ -1,15 +1,24 @@
 import { useState, useEffect } from "react";
 import UsersContract from "../contracts/UsersContract";
 import ProductsContract from "../contracts/ProductsContract";
-import SupplyChainContract from "../contracts/SupplyChainContract";
-import ObjectTransfersContract from "../contracts/ObjectTransfersContract";
+// import SupplyChainContract from "../contracts/SupplyChainContract";
+// import ObjectTransfersContract from "../contracts/ObjectTransfersContract";
 import Button from "@mui/material/Button";
+import { useParams } from "react-router-dom";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import TransferTable from "../components/TransferTable";
 
-function SellProductPage() {
+function SellProductPage(props) {
   const _usersContract = new UsersContract();
   const _productsContract = new ProductsContract();
-  const _supplyChainContract = new SupplyChainContract();
-  const _objectsTransfersContract = new ObjectTransfersContract();
+  // const _supplyChainContract = new SupplyChainContract();
+  // const _objectsTransfersContract = new ObjectTransfersContract();
   //what is needed for sell request:
   // buyerid
   // barcodeId
@@ -24,8 +33,13 @@ function SellProductPage() {
 
   // what do we need: a form
 
-  const [inputs, setInputs] = useState("");
-  const [user, setUser] = useState();
+  const params = useParams();
+  const [inputs, setInputs] = useState({
+    ["barcodeId"]: params.barcodeId,
+    ["quantity"]: params.quantity,
+  });
+  // const [user, setUser] = useState();
+  const [buyers, setBuyers] = useState();
   const [accountTransfers, setAccountTransfers] = useState();
 
   useEffect(() => {
@@ -34,12 +48,16 @@ function SellProductPage() {
 
   async function loadBlockChainData() {
     const _user = await _usersContract.getCurrentUser();
-    const _transfers = await _productsContract.transfers();
+    // setUser(_user);
+
     const _accountTransfers = await _productsContract.accountTransfers(
       _user.id
     );
-    setUser(_user);
     setAccountTransfers(_accountTransfers);
+
+    const _buyers = await _usersContract.getUserList();
+    setBuyers(_buyers);
+    // const _transfers = await _productsContract.transfers();
   }
 
   const handleChange = (event) => {
@@ -50,76 +68,68 @@ function SellProductPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(inputs);
     _productsContract.requestTransfer(
       inputs["barcodeId"],
       inputs["quantity"],
-      inputs["buyerId"]
+      buyers[inputs["buyerIndex"]].id
     );
   };
 
   return (
     <div>
+      <h4> New transfer </h4>
       <form onSubmit={handleSubmit}>
-        <label>
-          Barcode Id:
-          <input
-            type="string"
-            name="barcodeId"
-            value={inputs.barcodeId || ""}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          type="number"
+          label="Barcode Id"
+          name="barcodeId"
+          value={inputs.barcodeId ?? ""}
+          onChange={handleChange}
+        ></TextField>
         <br />
-        <label>
-          Buyer Id:
-          <input
-            type="string"
-            name="buyerId"
-            value={inputs.buyerId || ""}
-            onChange={handleChange}
-          />
-        </label>
         <br />
-        <label>
-          Quantity:
-          <input
-            type="number"
-            name="quantity"
-            value={inputs.quantity || ""}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          type="number"
+          label="Quantity"
+          name="quantity"
+          value={inputs.quantity ?? ""}
+          onChange={handleChange}
+        ></TextField>
         <br />
-        <input type="submit" />
+        <br />
+        <FormControl fullWidth>
+          <InputLabel>Buyer</InputLabel>
+          <Select
+            value={inputs.buyerIndex ?? ""}
+            label="Buyer"
+            onChange={handleChange}
+            name="buyerIndex"
+          >
+            {buyers?.map((buyer, index) => (
+              <MenuItem value={index} key={buyer.id.toString()}>
+                {buyer.name.toString()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <br />
+        <br />
+        <Button variant="contained" onClick={handleSubmit}>
+          Submit
+        </Button>
       </form>
+      <br />
       <div>
-        My Transfers
-        <br />
-        id | sender | receiver | barcodeId | quantity | status(0 = P, 1 = A, 2 =
-        R)
-        {accountTransfers?.map((transfer, index) => (
-          <div key={index}>
-            {transfer.id.toNumber()} | {transfer.sender.substring(0, 10)} |{" "}
-            {transfer.receiver.substring(0, 10)} | {transfer.barcodeId} |{" "}
-            {transfer.quantity.toNumber()} | {transfer.status} |{" "}
-            <Button
-              onClick={() => {
-                _productsContract.acceptTransfer(transfer.id);
-              }}
-            >
-              Accept
-            </Button>{" "}
-            |{" "}
-            <Button
-              onClick={() => {
-                _productsContract.refuseTransfer(transfer.id);
-              }}
-            >
-              Refuse
-            </Button>
-          </div>
-        ))}
+        <h4>My Transfers </h4>
+        <TransferTable
+          items={accountTransfers}
+          acceptTransfer={(id) => {
+            _productsContract.acceptTransfer(id);
+          }}
+          refuseTransfer={(id) => {
+            _productsContract.refuseTransfer(id);
+          }}
+        ></TransferTable>
       </div>
     </div>
   );

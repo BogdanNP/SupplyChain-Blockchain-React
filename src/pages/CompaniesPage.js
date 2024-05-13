@@ -25,7 +25,7 @@ function CompaniesPage() {
 
   async function findUser(userAddress) {
     const _address = userAddress["address"];
-    const _foundUser = await _usersContract.users(_address);
+    const _foundUser = await _usersContract.getUser(_address);
     setFoundUser(_foundUser);
   }
 

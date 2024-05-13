@@ -1,3 +1,4 @@
+import { Button, TextField } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 
@@ -20,16 +21,20 @@ function FindUserForm(props) {
     <div>
       <h4>Find Company </h4>
       <form onSubmit={handleSubmit}>
-        <label>
-          Account Public Key:
-          <input
-            type="text"
-            name="address"
-            value={inputs.address || ""}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          type="text"
+          label="Public Key"
+          name="address"
+          value={inputs.address ?? ""}
+          onChange={handleChange}
+        />
       </form>
+      <br />
+      <Button variant="contained" onClick={handleSubmit}>
+        Submit
+      </Button>
+      <br />
+      <br />
     </div>
   );
 }

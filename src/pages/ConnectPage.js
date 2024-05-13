@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import UsersContract from "../contracts/UsersContract";
+import { userRoleFromString } from "../UserRoles";
 import {
   Button,
   FormControl,
@@ -6,10 +9,10 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
 
-function AddUserForm(props) {
+function ConnectPage() {
+  const _usersContract = new UsersContract();
+  const userTypes = ["Manufacturer", "Supplier", "Vendor", "Client"];
   const [inputs, setInputs] = useState({ ["role"]: "Manufacturer" });
 
   const handleChange = (event) => {
@@ -20,24 +23,29 @@ function AddUserForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
-    props.onSubmit(inputs);
+    addUser(inputs);
   };
+
+  async function addUser(userDetails) {
+    console.log(userDetails);
+    const newUser = {
+      //   id: userDetails["address"],
+      name: userDetails["name"],
+      email: userDetails["email"],
+      role: userRoleFromString(userDetails["role"]),
+    };
+    await _usersContract.register(newUser);
+  }
+
+  useEffect(() => {
+    loadBlockChainData();
+  }, []);
+  async function loadBlockChainData() {}
 
   return (
     <div>
-      <h4>Add Company </h4>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          type="text"
-          label="Public Key"
-          name="address"
-          value={inputs.address ?? ""}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-
+      <h4>Select user type</h4>
+      <form>
         <FormControl>
           <InputLabel>User Type</InputLabel>
           <Select
@@ -56,9 +64,9 @@ function AddUserForm(props) {
             <MenuItem value={"Vendor"} key={2}>
               Vendor
             </MenuItem>
-            {/* <MenuItem value={"Customer"} key={3}>
+            <MenuItem value={"Customer"} key={3}>
               Customer
-            </MenuItem> */}
+            </MenuItem>
           </Select>
         </FormControl>
         <br />
@@ -91,4 +99,4 @@ function AddUserForm(props) {
   );
 }
 
-export default AddUserForm;
+export default ConnectPage;

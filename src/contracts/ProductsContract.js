@@ -9,22 +9,68 @@ import { Product } from "../models/Product";
 import { ComposedProductEvent } from "../models/ComposedProductEvent";
 
 class ProductsContract {
+  static _instance = undefined;
+  static instance() {
+    if (ProductsContract._instance === undefined) {
+      ProductsContract._instance = new ProductsContract();
+    }
+    return ProductsContract._instance;
+  }
+
   constructor() {
-    const _provider = new ethers.providers.Web3Provider(window.ethereum);
+    this._provider = new ethers.providers.Web3Provider(window.ethereum);
     this.productsContract = new ethers.Contract(
       CONTRACT_ADDRESS_PRODUCTS,
       CONTRACT_ABI_PRODUCTS,
-      _provider.getSigner(0)
+      this._provider.getSigner(0)
     );
+    this.listenToEvents();
   }
 
-  async getProductTypeEvents() {
+  listenToEvents() {
+    if (this.listening === true) {
+      return;
+    }
+    this.listening = true;
+    // console.log("init event listening");
+    this.productsContract.on(
+      {
+        address: CONTRACT_ADDRESS_PRODUCTS,
+        topics: [
+          ethers.utils.id("NewProduct(string,string,string,uint256,uint256)"),
+        ],
+      },
+      (productName, manufacturerName, barcodeId, manDate, expDate) => {
+        // console.log(
+        //   "NewProduct:",
+        //   productName,
+        //   manufacturerName,
+        //   barcodeId,
+        //   manDate.toNumber(),
+        //   expDate.toNumber()
+        // );
+      }
+    );
+    // this._provider.on(
+    //   {
+    //     address: CONTRACT_ADDRESS_PRODUCTS,
+    //     topics: [
+    //       ethers.utils.id("NewProduct(string,string,string,uint256,uint256)"),
+    //     ],
+    //   },
+    //   (value) => {
+    //     console.log("NewProduct:", value);
+    //   }
+    // );
+  }
+
+  async getProductEvents() {
     try {
-      const productTypeEvents = await this.productsContract.queryFilter(
-        "NewProductType"
+      const productEvents = await this.productsContract.queryFilter(
+        "NewProduct"
       );
-      // TODO: maybe convert data to model?
-      return productTypeEvents.map((e) => e["args"]);
+      return productEvents;
+      // return productEvents.map((e) => e["args"]);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -37,7 +83,25 @@ class ProductsContract {
       const productEvents = await this.productsContract.queryFilter(
         "ComposedProduct"
       );
-      return productEvents.map((e) => new ComposedProductEvent(e["args"]));
+      console.log(productEvents);
+      return productEvents;
+      // return productEvents.map((e) => e["args"]);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      alert(contractError.error);
+    }
+  }
+
+  async getProductTypeEvents() {
+    try {
+      const productTypeEvents = await this.productsContract.queryFilter(
+        "NewProductType"
+      );
+      // TODO: maybe convert data to model?
+      // console.log(productTypeEvents);
+      return productTypeEvents;
+      // return productTypeEvents.map((e) => e["args"]);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
