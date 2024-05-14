@@ -39,8 +39,8 @@ function DashboardPage() {
             {"#"}
             {productTypeEvent["args"].id.toNumber()}{" "}
             {productTypeEvent["args"].name}
-            <br />* block number: {productTypeEvent.blockNumber}
-            <br />* block hash: {productTypeEvent.blockHash}
+            {/* <br />* block number: {productTypeEvent.blockNumber}
+            <br />* block hash: {productTypeEvent.blockHash} */}
           </div>
         );
       })}
@@ -51,8 +51,8 @@ function DashboardPage() {
             {productEvent["args"].name} {" | "}{" "}
             {productEvent["args"].manufacturerName} {" | "}
             {productEvent["args"].barcodeId} {" | "}
-            <br />* block number: {productEvent.blockNumber}
-            <br />* block hash: {productEvent.blockHash}
+            {/* <br />* block number: {productEvent.blockNumber}
+            <br />* block hash: {productEvent.blockHash} */}
           </div>
         );
       })}
@@ -64,8 +64,8 @@ function DashboardPage() {
             {productEvent["args"].manufacturerName} {" | "}
             {productEvent["args"].barcodeId} {" | "}
             {productEvent["args"].parentProducts.join(", ")} {" | "}
-            <br />* block number: {productEvent.blockNumber}
-            <br />* block hash: {productEvent.blockHash}
+            {/* <br />* block number: {productEvent.blockNumber}
+            <br />* block hash: {productEvent.blockHash} */}
           </div>
         );
       })}

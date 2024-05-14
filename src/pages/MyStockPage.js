@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import ProductsContract from "../contracts/ProductsContract";
 import UsersContract from "../contracts/UsersContract";
 import SupplyChainContract from "../contracts/SupplyChainContract";
-import ProductTable from "../ProductTable";
+import ProductTable from "../components/ProductTable";
 import CreateProductForm from "../components/CreateProductForm";
 import AddProductForm from "../AddProductForm";
 import TransactionSnackbar from "../components/TransactionSnackbar";

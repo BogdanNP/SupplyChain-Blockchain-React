@@ -1,7 +1,6 @@
 import AddUserForm from "../AddUserForm";
 import FindUserForm from "../FindUserForm";
 import UserDetails from "../UserDetails";
-import ProductTypeTable from "../ProductTypeTable";
 import { userRoleFromString } from "../UserRoles";
 import UsersContract from "../contracts/UsersContract";
 import SupplyChainContract from "../contracts/SupplyChainContract";

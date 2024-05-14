@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Barcode from "react-barcode";
-import { toDateString } from "./utils/DateUtils";
+import { toDateString } from "../utils/DateUtils";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -25,9 +25,9 @@ function ProductTable(props) {
           <TableHead>
             <TableRow>
               <TableCell> Name</TableCell>
-              <TableCell> Type Id</TableCell>
+              {/* <TableCell> Type Id</TableCell> */}
               <TableCell> Man. Name</TableCell>
-              <TableCell> Man. Id</TableCell>
+              {/* <TableCell> Man. Id</TableCell> */}
               <TableCell> Quantity</TableCell>
               <TableCell> Man. Date</TableCell>
               <TableCell> Exp. Date</TableCell>
@@ -42,11 +42,11 @@ function ProductTable(props) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell>{item.name}</TableCell>
-                <TableCell>{item.productTypeId}</TableCell>
+                {/* <TableCell>{item.productTypeId}</TableCell> */}
                 <TableCell>{item.manufacturerName}</TableCell>
-                <TableCell>
+                {/* <TableCell>
                   {item.manufacturerId.substring(0, 10) + "..."}
-                </TableCell>
+                </TableCell> */}
                 <TableCell>{item.quantity ?? 0}</TableCell>
                 <TableCell>
                   {toDateString(item.manufacturingDate.toNumber())}
@@ -65,6 +65,7 @@ function ProductTable(props) {
                 </TableCell>
                 <TableCell>
                   <Button
+                    disabled={(item.quantity ?? 0) == 0}
                     onClick={() => {
                       navigate(`/transfers/${item.barcodeId}/${item.quantity}`);
                     }}

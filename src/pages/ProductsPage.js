@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProductTypeTable from "../ProductTypeTable";
+import ProductTypeTable from "../components/ProductTypeTable";
 import ProductsContract from "../contracts/ProductsContract";
 import AddProductTypeForm from "../AddProductTypeForm";
 import SupplyChainContract from "../contracts/SupplyChainContract";

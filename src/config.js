@@ -463,6 +463,61 @@ export const CONTRACT_ABI_USERS = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "getManufacturerDetails",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "code",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "region",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Types.ManufacturerDetails",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "manufacturerDetailList",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "code",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "region",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "manufacutersCount",
     outputs: [
@@ -796,6 +851,23 @@ export const CONTRACT_ABI_PRODUCTS = [
         type: "tuple",
       },
       {
+        components: [
+          {
+            internalType: "uint256",
+            name: "code",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "region",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Types.ManufacturerDetails",
+        name: "manufacturerDetails",
+        type: "tuple",
+      },
+      {
         internalType: "string",
         name: "manufacturerName",
         type: "string",
@@ -947,6 +1019,23 @@ export const CONTRACT_ABI_PRODUCTS = [
         internalType: "uint256",
         name: "recepieId",
         type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "code",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "region",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Types.ManufacturerDetails",
+        name: "manufacturerDetails",
+        type: "tuple",
       },
       {
         components: [
