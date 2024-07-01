@@ -5,7 +5,7 @@ import UsersContract from "../contracts/UsersContract";
 import SupplyChainContract from "../contracts/SupplyChainContract";
 import ProductTable from "../components/ProductTable";
 import CreateProductForm from "../components/CreateProductForm";
-import AddProductForm from "../AddProductForm";
+import AddProductForm from "../components/AddProductForm";
 import TransactionSnackbar from "../components/TransactionSnackbar";
 
 function MyStockPage() {

@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { userRoleToString } from "./UserRoles";
+import { userRoleToString } from "../models/UserRoles";
 
 function UserDetails(props) {
   return (

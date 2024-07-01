@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import UsersContract from "../contracts/UsersContract";
-import { userRoleFromString } from "../UserRoles";
+import { userRoleFromString } from "../models/UserRoles";
 import {
   Button,
   FormControl,

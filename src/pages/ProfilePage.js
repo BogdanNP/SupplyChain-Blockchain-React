@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import UsersContract from "../contracts/UsersContract";
-import UserDetails from "../UserDetails";
+import UserDetails from "../components/UserDetails";
 
 function ProfilePage(props) {
   var _usersContract = new UsersContract();

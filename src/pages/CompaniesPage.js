@@ -1,7 +1,7 @@
-import AddUserForm from "../AddUserForm";
-import FindUserForm from "../FindUserForm";
-import UserDetails from "../UserDetails";
-import { userRoleFromString } from "../UserRoles";
+import AddUserForm from "../components/AddUserForm";
+import FindUserForm from "../components/FindUserForm";
+import UserDetails from "../components/UserDetails";
+import { userRoleFromString } from "../models/UserRoles";
 import UsersContract from "../contracts/UsersContract";
 import SupplyChainContract from "../contracts/SupplyChainContract";
 import { React, useState, useEffect } from "react";
