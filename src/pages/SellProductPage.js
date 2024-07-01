@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import UsersContract from "../contracts/UsersContract";
 import ProductsContract from "../contracts/ProductsContract";
-// import SupplyChainContract from "../contracts/SupplyChainContract";
-// import ObjectTransfersContract from "../contracts/ObjectTransfersContract";
 import Button from "@mui/material/Button";
 import { useParams } from "react-router-dom";
 import {
@@ -17,21 +15,6 @@ import TransferTable from "../components/TransferTable";
 function SellProductPage(props) {
   const _usersContract = new UsersContract();
   const _productsContract = new ProductsContract();
-  // const _supplyChainContract = new SupplyChainContract();
-  // const _objectsTransfersContract = new ObjectTransfersContract();
-  //what is needed for sell request:
-  // buyerid
-  // barcodeId
-  // currentTime
-  // quantity
-
-  // what is needed for accept sell request
-  // sellerId
-  // barcodeId
-  // currentId
-  // acceptSell
-
-  // what do we need: a form
 
   const params = useParams();
   const [inputs, setInputs] = useState({
