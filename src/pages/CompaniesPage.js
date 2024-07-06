@@ -1,7 +1,7 @@
 import AddUserForm from "../components/AddUserForm";
 import FindUserForm from "../components/FindUserForm";
 import UserDetails from "../components/UserDetails";
-import { userRoleFromString } from "../models/UserRoles";
+import { userRoleFromString, UserRoles } from "../models/UserRoles";
 import UsersContract from "../contracts/UsersContract";
 import SupplyChainContract from "../contracts/SupplyChainContract";
 import { React, useState, useEffect } from "react";
@@ -10,6 +10,7 @@ function CompaniesPage() {
   const _usersContract = new UsersContract();
   const _supplyChainContract = new SupplyChainContract();
   const [foundUser, setFoundUser] = useState();
+  const [user, setUser] = useState(undefined);
 
   async function addUser(userDetails) {
     // console.log(userDetails);
@@ -33,18 +34,36 @@ function CompaniesPage() {
     foundUserDetails = <UserDetails user={foundUser} />;
   }
 
+  async function loadBlockChainData() {
+    let _user;
+    _user = await _usersContract.getCurrentUser();
+    if (_user === undefined) {
+      setUser(undefined);
+    } else {
+      setUser(_user);
+    }
+  }
+
   useEffect(() => {
-    // loadBlockChainData();
+    loadBlockChainData();
   }, []);
+
+  let addUserForm;
+  if (user !== undefined) {
+    if (user.role == UserRoles.Admin) {
+      addUserForm = (
+        <AddUserForm
+          onSubmit={(e) => {
+            addUser(e);
+          }}
+        />
+      );
+    }
+  }
 
   return (
     <div>
-      {" "}
-      <AddUserForm
-        onSubmit={(e) => {
-          addUser(e);
-        }}
-      />
+      {addUserForm}
       <FindUserForm
         onSubmit={(e) => {
           findUser(e);

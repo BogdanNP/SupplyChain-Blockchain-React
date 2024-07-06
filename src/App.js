@@ -35,64 +35,68 @@ function App() {
   const _supplyChainContract = new SupplyChainContract();
 
   const navigate = useNavigate();
+  const [user, setUser] = useState(undefined);
 
   async function loadBlockChainData() {
-    // console.log(accounts);
-
-    // const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    // const accounts = await web3.eth.getAccounts();
-    // console.log(accounts);
-    // setAccount(accounts[0]);
-
-    // setContractProducts(productsContract);
-
-    const _user = await _usersContract.getCurrentUser();
-    // console.log("User:", _user);
-
-    // contractUsers.events.NewUser({ fromBlock: 0 }).on("data", function (event) {
-    //   console.log("EVENT:", event);
-    // });
-    // usersContract.on("NewUser", function (event) {
-    //   console.log("EVENT:", event);
-    // });
-
-    // const NewUserEvent =
-    //   usersContract.interface.events["NewUser(address,string,string,uint8)"];
-
-    // const ev = usersContract.interface.getEvent("NewUser");
-    // console.log("ev:", ev);
-    // const logs = await _provider.getLogs({
-    //   fromBlock: 0,
-    //   toBlock: "latest",
-    //   address: usersContract.address,
-    //   topics: NewUserEvent.topics,
-    // });
-
-    // for (const log of logs) {
-    //   // const logData = NewUserEvent.parse(log.topics, log.data);
-    //   // console.log("Log:", logData);
-    // }
-
-    // const userEvents = await _usersContract.queryFilter("NewUser");
-    // console.log(userEvents.map((e) => e.args));
-
-    await loadProductsData(_user);
-  }
-
-  async function loadProductsData(_user) {
-    const productTypeEvents = await _productsContract.getProductTypeList();
-    // console.log("productTypeEvents", productTypeEvents);
-
-    const recepieEvents = await _productsContract.getRecepieEvents();
-    // console.log("recepieEvents", recepieEvents);
-
-    const recepieCounter = await _productsContract.getRecepieCounter();
-    // console.log("recepieCounter", recepieCounter);
+    let _user;
+    _user = await _usersContract.getCurrentUser();
+    if (_user === undefined) {
+      setUser(undefined);
+    } else {
+      setUser(_user);
+    }
   }
 
   useEffect(() => {
     loadBlockChainData();
   }, []);
+  let profileButton;
+  let transfersButton;
+  let myStockButton;
+  let connectButton;
+  if (user !== undefined) {
+    profileButton = (
+      <Button
+        color="inherit"
+        onClick={() => {
+          navigate("/profile");
+        }}
+      >
+        Profile
+      </Button>
+    );
+    transfersButton = (
+      <Button
+        color="inherit"
+        onClick={() => {
+          navigate("/transfers");
+        }}
+      >
+        Transfers
+      </Button>
+    );
+    myStockButton = (
+      <Button
+        color="inherit"
+        onClick={() => {
+          navigate("/my_stock");
+        }}
+      >
+        MY STOCK
+      </Button>
+    );
+  } else {
+    connectButton = (
+      <Button
+        color="inherit"
+        onClick={() => {
+          navigate("/connect");
+        }}
+      >
+        Connect
+      </Button>
+    );
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -108,14 +112,7 @@ function App() {
           >
             <MenuIcon />
           </IconButton>
-          <Button
-            color="inherit"
-            onClick={() => {
-              navigate("/connect");
-            }}
-          >
-            Connect
-          </Button>
+          {connectButton}
           <Button
             color="inherit"
             onClick={() => {
@@ -124,14 +121,7 @@ function App() {
           >
             Dashboard
           </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              navigate("/profile");
-            }}
-          >
-            Profile
-          </Button>
+          {profileButton}
           <Button
             color="inherit"
             onClick={() => {
@@ -140,14 +130,7 @@ function App() {
           >
             Companies
           </Button>{" "}
-          <Button
-            color="inherit"
-            onClick={() => {
-              navigate("/my_stock");
-            }}
-          >
-            MY STOCK
-          </Button>
+          {myStockButton}
           <Button
             color="inherit"
             onClick={() => {
@@ -172,14 +155,7 @@ function App() {
           >
             Track
           </Button>{" "}
-          <Button
-            color="inherit"
-            onClick={() => {
-              navigate("/transfers");
-            }}
-          >
-            Transfers
-          </Button>
+          {transfersButton}
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ p: 3 }}>

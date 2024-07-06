@@ -6,7 +6,6 @@ import { Recepie } from "../models/Recepie";
 import { RecepieIngredient } from "../models/RecepieIngredient";
 import { ProductType } from "../models/ProductType";
 import { Product } from "../models/Product";
-import { ComposedProductEvent } from "../models/ComposedProductEvent";
 
 class ProductsContract {
   static _instance = undefined;
@@ -74,7 +73,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -89,7 +88,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -105,11 +104,9 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
-
-  async trackComposedProductEvents(barcodeId) {}
 
   async getRecepieEvents() {
     try {
@@ -121,7 +118,21 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
+    }
+  }
+
+  async getObjectTransferredEvents() {
+    try {
+      const objectTransferredEvents = await this.productsContract.queryFilter(
+        "ObjectTransferred"
+      );
+      // TODO: maybe convert data to model?
+      return objectTransferredEvents.map((e) => e["args"]);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      // alert(contractError.error);
     }
   }
 
@@ -131,7 +142,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -155,7 +166,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -172,7 +183,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -197,7 +208,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -208,7 +219,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -220,7 +231,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -245,37 +256,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
-    }
-  }
-
-  async requestTransfer(barcodeId, quantity, receiver) {
-    try {
-      await this.productsContract.requestTransfer(
-        barcodeId,
-        quantity,
-        receiver
-      );
-    } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
-      alert(contractError.error);
-    }
-  }
-
-  async transfers() {
-    try {
-      const transferCount = await this.productsContract.transferCount();
-      var transferList = [];
-      for (let i = 0; i < transferCount.toNumber(); ++i) {
-        const transfer = await this.productsContract.transfers(0);
-        transferList.push(transfer);
-      }
-      return transferList;
-    } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -293,7 +274,21 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
+    }
+  }
+
+  async requestTransfer(barcodeId, quantity, receiver) {
+    try {
+      await this.productsContract.requestTransfer(
+        barcodeId,
+        quantity,
+        receiver
+      );
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      // alert(contractError.error);
     }
   }
 
@@ -303,7 +298,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -313,7 +308,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -323,7 +318,7 @@ class ProductsContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 }

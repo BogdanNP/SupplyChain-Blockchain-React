@@ -29,7 +29,6 @@ function ConnectPage() {
   async function addUser(userDetails) {
     console.log(userDetails);
     const newUser = {
-      //   id: userDetails["address"],
       name: userDetails["name"],
       email: userDetails["email"],
       role: userRoleFromString(userDetails["role"]),

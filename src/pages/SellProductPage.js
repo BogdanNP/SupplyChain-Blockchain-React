@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import TransferTable from "../components/TransferTable";
+import { useNavigate } from "react-router-dom";
 
 function SellProductPage(props) {
   const _usersContract = new UsersContract();
@@ -29,18 +30,23 @@ function SellProductPage(props) {
     loadBlockChainData();
   }, []);
 
+  const navigate = useNavigate();
+
   async function loadBlockChainData() {
     const _user = await _usersContract.getCurrentUser();
-    // setUser(_user);
+    if (_user === undefined) {
+      navigate("/connect");
+    } else {
+      // setUser(_user);
 
-    const _accountTransfers = await _productsContract.accountTransfers(
-      _user.id
-    );
-    setAccountTransfers(_accountTransfers);
+      const _accountTransfers = await _productsContract.accountTransfers(
+        _user.id
+      );
+      setAccountTransfers(_accountTransfers);
 
-    const _buyers = await _usersContract.getUserList();
-    setBuyers(_buyers);
-    // const _transfers = await _productsContract.transfers();
+      const _buyers = await _usersContract.getUserList();
+      setBuyers(_buyers);
+    }
   }
 
   const handleChange = (event) => {

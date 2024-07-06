@@ -20,9 +20,9 @@ class UsersContract {
       });
       return this.getUser(accounts[0]);
     } catch (error) {
-      console.error(error);
+      // console.log(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -31,9 +31,9 @@ class UsersContract {
       const user = await this.usersContract.get(address);
       return user;
     } catch (error) {
-      console.error(error);
+      console.log(error);
       const contractError = decodeError(error);
-      alert(contractError);
+      // alert(contractError);
     }
   }
 
@@ -54,7 +54,7 @@ class UsersContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -65,7 +65,7 @@ class UsersContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -80,7 +80,7 @@ class UsersContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 }

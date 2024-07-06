@@ -17,10 +17,9 @@ function ProductTable(props) {
   if (props.items === undefined) {
     return <div></div>;
   }
-
   return (
     <div className="ProductTable">
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ height: 400 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

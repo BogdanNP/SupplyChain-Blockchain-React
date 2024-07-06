@@ -9,9 +9,11 @@ function DashboardPage() {
   const [productTypeEventList, setProductTypeEventList] = useState();
   const [productEventList, setProductEventList] = useState();
   const [composedProductEventList, setComposedProductEventList] = useState();
+
   useEffect(() => {
     loadBlockChainData();
   }, []);
+
   async function loadBlockChainData() {
     const _usersCount = await _usersContract.getUsersCount();
     setUsersCount(_usersCount);

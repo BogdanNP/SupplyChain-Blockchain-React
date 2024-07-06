@@ -7,6 +7,7 @@ import ProductTable from "../components/ProductTable";
 import CreateProductForm from "../components/CreateProductForm";
 import AddProductForm from "../components/AddProductForm";
 import TransactionSnackbar from "../components/TransactionSnackbar";
+import { useNavigate } from "react-router-dom";
 
 function MyStockPage() {
   const _productsContract = ProductsContract.instance();
@@ -25,18 +26,24 @@ function MyStockPage() {
     setOpenSnackbar(false);
   };
 
+  const navigate = useNavigate();
+
   async function loadBlockChainData() {
     const _user = await _usersContract.getCurrentUser();
-    setUser(_user);
+    if (_user === undefined) {
+      navigate("/connect");
+    } else {
+      setUser(_user);
 
-    const _productTypes = await _productsContract.getProductTypeList();
-    setProductTypes(_productTypes);
+      const _productTypes = await _productsContract.getProductTypeList();
+      setProductTypes(_productTypes);
 
-    const _products = await _productsContract.getProductList(_user.id);
-    setProducts(_products);
+      const _products = await _productsContract.getProductList(_user.id);
+      setProducts(_products);
 
-    const _recepies = await _productsContract.getRecepieList();
-    setRecepies(_recepies);
+      const _recepies = await _productsContract.getRecepieList();
+      setRecepies(_recepies);
+    }
   }
 
   useEffect(() => {
@@ -54,6 +61,7 @@ function MyStockPage() {
     };
     // console.log(product);
 
+    //TODO: add this everywhere for reloading :D
     const _txReceipt = await _supplyChainContract.addProduct(product);
     setTxReceipt(_txReceipt);
     if (_txReceipt !== undefined) {
@@ -64,8 +72,17 @@ function MyStockPage() {
   }
 
   async function createProduct(data) {
-    await _supplyChainContract.createProduct(data["recepieId"]);
+    const _txReceipt = await _supplyChainContract.createProduct(
+      data["recepieId"]
+    );
+    setTxReceipt(_txReceipt);
+    if (_txReceipt !== undefined) {
+      const _products = await _productsContract.getProductList(user.id);
+      setProducts(_products);
+      setOpenSnackbar(true);
+    }
   }
+
   return (
     <div>
       <AddProductForm

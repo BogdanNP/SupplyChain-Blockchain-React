@@ -18,11 +18,11 @@ class SupplyChainContract {
   async addProductType(productType) {
     try {
       const tx = await this.supplyChainContract.addProductType(productType);
-      this.handleTransaction(tx);
+      return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -33,29 +33,29 @@ class SupplyChainContract {
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
   async createProduct(recepieId) {
     try {
       const tx = await this.supplyChainContract.createProduct(recepieId);
-      this.handleTransaction(tx);
+      return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
   async addUser(user) {
     try {
       const tx = await this.supplyChainContract.addUser(user);
-      this.handleTransaction(tx);
+      return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
@@ -67,11 +67,11 @@ class SupplyChainContract {
         currentTime,
         quantity
       );
-      this.handleTransaction(tx);
+      return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
-      alert(contractError.error);
+      // alert(contractError.error);
     }
   }
 
