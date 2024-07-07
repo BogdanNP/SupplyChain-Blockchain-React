@@ -4,7 +4,7 @@ import UserDetails from "../components/UserDetails";
 import { useNavigate } from "react-router-dom";
 
 function ProfilePage(props) {
-  var _usersContract = new UsersContract();
+  const _usersContract = new UsersContract();
   const [user, setUser] = useState();
 
   const navigate = useNavigate();

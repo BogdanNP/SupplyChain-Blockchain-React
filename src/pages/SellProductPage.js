@@ -22,7 +22,7 @@ function SellProductPage(props) {
     ["barcodeId"]: params.barcodeId,
     ["quantity"]: params.quantity,
   });
-  // const [user, setUser] = useState();
+  const [user, setUser] = useState();
   const [buyers, setBuyers] = useState();
   const [accountTransfers, setAccountTransfers] = useState();
 
@@ -37,15 +37,25 @@ function SellProductPage(props) {
     if (_user === undefined) {
       navigate("/connect");
     } else {
-      // setUser(_user);
+      setUser(_user);
+
+      const _buyers = await _usersContract.getUserList();
+      setBuyers(_buyers);
 
       const _accountTransfers = await _productsContract.accountTransfers(
         _user.id
       );
-      setAccountTransfers(_accountTransfers);
-
-      const _buyers = await _usersContract.getUserList();
-      setBuyers(_buyers);
+      const newAccT = _accountTransfers.map((transfer) => {
+        let receiver = _buyers?.find((buyer) => buyer.id === transfer.receiver);
+        let sender = _buyers?.find((buyer) => buyer.id === transfer.sender);
+        return {
+          ...transfer,
+          receiverName: receiver?.name ?? _user.name,
+          senderName: sender?.name ?? _user.name,
+        };
+      });
+      console.log("_accountTransfers", newAccT);
+      setAccountTransfers(newAccT);
     }
   }
 
@@ -112,11 +122,15 @@ function SellProductPage(props) {
         <h4>My Transfers </h4>
         <TransferTable
           items={accountTransfers}
+          user={user}
           acceptTransfer={(id) => {
             _productsContract.acceptTransfer(id);
           }}
           refuseTransfer={(id) => {
             _productsContract.refuseTransfer(id);
+          }}
+          cancelTransfer={(id) => {
+            _productsContract.cancelTransfer(id);
           }}
         ></TransferTable>
       </div>

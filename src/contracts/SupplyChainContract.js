@@ -59,6 +59,17 @@ class SupplyChainContract {
     }
   }
 
+  async blockProduct(barcodeId) {
+    try {
+      const tx = await this.supplyChainContract.blockProduct(barcodeId, true);
+      console.log("blockProduct", tx);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      // alert(contractError.error);
+    }
+  }
+
   async createSellRequest(buyerId, barcodeId, currentTime, quantity) {
     try {
       const tx = await this.supplyChainContract.createSellRequest(

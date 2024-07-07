@@ -6,31 +6,39 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Barcode from "react-barcode";
 
-function ProductTypeTable(props) {
+function ProductBlockEventTable(props) {
   if (props.items === undefined) {
     return <div></div>;
   }
   return (
-    <div className="ProductTypeTable">
+    <div className="BlockProductTable">
       <TableContainer component={Paper} style={{ maxHeight: 800 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell> Id</TableCell>
-              <TableCell> Name</TableCell>
-              <TableCell> Details</TableCell>
+              <TableCell> Barcode</TableCell>
+              <TableCell> Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.items.map((item) => (
               <TableRow
-                key={item.id}
+                key={item.barcodeId}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>{item.id.toString()}</TableCell>
-                <TableCell>{item.name}</TableCell>
-                <TableCell>{item.details}</TableCell>
+                <TableCell>
+                  <Barcode
+                    value={item.barcodeId}
+                    height={20}
+                    fontSize={16}
+                    margin={0}
+                  ></Barcode>
+                </TableCell>
+                <TableCell>
+                  {item.status === true ? "Blocked" : "Not Blocked"}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -40,4 +48,4 @@ function ProductTypeTable(props) {
   );
 }
 
-export default ProductTypeTable;
+export default ProductBlockEventTable;

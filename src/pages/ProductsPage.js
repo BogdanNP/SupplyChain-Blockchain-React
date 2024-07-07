@@ -53,6 +53,8 @@ function ProductsPage() {
   return (
     <div>
       {addProductTypeForm}
+      <br />
+      <h4> Product Type Table:</h4>
       <ProductTypeTable items={productTypes} />
     </div>
   );

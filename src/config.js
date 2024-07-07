@@ -158,6 +158,24 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "barcodeId",
+        type: "string",
+      },
+      {
+        internalType: "bool",
+        name: "status",
+        type: "bool",
+      },
+    ],
+    name: "blockProduct",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "recepieId",
         type: "uint256",
@@ -658,6 +676,25 @@ export const CONTRACT_ABI_PRODUCTS = [
       {
         indexed: false,
         internalType: "string",
+        name: "barcodeId",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "status",
+        type: "bool",
+      },
+    ],
+    name: "BlockedProduct",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "string",
         name: "name",
         type: "string",
       },
@@ -1124,6 +1161,43 @@ export const CONTRACT_ABI_PRODUCTS = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "barcodeId",
+        type: "string",
+      },
+      {
+        internalType: "bool",
+        name: "status",
+        type: "bool",
+      },
+    ],
+    name: "blockProduct",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    name: "blockedProducts",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
       },
     ],
     stateMutability: "view",

@@ -19,7 +19,7 @@ function ProductTable(props) {
   }
   return (
     <div className="ProductTable">
-      <TableContainer component={Paper} style={{ height: 400 }}>
+      <TableContainer component={Paper} style={{ maxHeight: 800 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

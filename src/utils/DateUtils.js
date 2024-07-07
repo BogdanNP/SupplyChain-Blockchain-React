@@ -1,4 +1,7 @@
 function toDateString(timestamp) {
+  if (timestamp === undefined) {
+    return "";
+  }
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "2-digit",

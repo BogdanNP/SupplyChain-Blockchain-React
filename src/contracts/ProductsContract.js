@@ -82,7 +82,22 @@ class ProductsContract {
       const productEvents = await this.productsContract.queryFilter(
         "ComposedProduct"
       );
-      console.log(productEvents);
+      // console.log(productEvents);
+      return productEvents;
+      // return productEvents.map((e) => e["args"]);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      // alert(contractError.error);
+    }
+  }
+
+  async getBlockedProductEvents() {
+    try {
+      const productEvents = await this.productsContract.queryFilter(
+        "BlockedProduct"
+      );
+      // console.log(productEvents);
       return productEvents;
       // return productEvents.map((e) => e["args"]);
     } catch (error) {
@@ -128,7 +143,7 @@ class ProductsContract {
         "ObjectTransferred"
       );
       // TODO: maybe convert data to model?
-      return objectTransferredEvents.map((e) => e["args"]);
+      return objectTransferredEvents;
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -204,6 +219,15 @@ class ProductsContract {
           new Product(product, userLinkedStockItem?.quantity.toNumber())
         );
       }
+      productList.sort((a, b) => {
+        if (a.quantity === 0) {
+          return 1;
+        }
+        if (b.quantity === 0) {
+          return -1;
+        }
+        return 0;
+      });
       return productList;
     } catch (error) {
       console.error(error);
@@ -303,6 +327,16 @@ class ProductsContract {
   }
 
   async refuseTransfer(transferId) {
+    try {
+      await this.productsContract.refuseTransfer(transferId);
+    } catch (error) {
+      console.error(error);
+      const contractError = decodeError(error);
+      // alert(contractError.error);
+    }
+  }
+
+  async cancelTransfer(transferId) {
     try {
       await this.productsContract.refuseTransfer(transferId);
     } catch (error) {

@@ -8,7 +8,7 @@ function RecepieCard(props) {
     return <div></div>;
   }
   return (
-    <Card sx={{ maxWidth: 345 }} style={{ backgroundColor: "#F8F8F8" }}>
+    <Card sx={{ maxWidth: 345 }} style={{ backgroundColor: "#BEBEBE" }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {props.recepie.resultTypeName + " (#" + props.recepie.id + ")"}
