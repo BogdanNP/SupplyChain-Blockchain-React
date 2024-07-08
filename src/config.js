@@ -177,7 +177,7 @@ export const CONTRACT_ABI_SUPPLYCHAIN = [
     inputs: [
       {
         internalType: "uint256",
-        name: "recepieId",
+        name: "recipeId",
         type: "uint256",
       },
     ],
@@ -810,7 +810,7 @@ export const CONTRACT_ABI_PRODUCTS = [
         type: "string",
       },
     ],
-    name: "NewRecepie",
+    name: "NewRecipe",
     type: "event",
   },
   {
@@ -1003,12 +1003,12 @@ export const CONTRACT_ABI_PRODUCTS = [
             type: "uint256",
           },
         ],
-        internalType: "struct Types.Recepie",
-        name: "recepie",
+        internalType: "struct Types.Recipe",
+        name: "recipe",
         type: "tuple",
       },
     ],
-    name: "_addRecepie",
+    name: "_addRecipe",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1043,12 +1043,12 @@ export const CONTRACT_ABI_PRODUCTS = [
             type: "uint256",
           },
         ],
-        internalType: "struct Types.Recepie[]",
-        name: "recepieList",
+        internalType: "struct Types.Recipe[]",
+        name: "recipeList",
         type: "tuple[]",
       },
     ],
-    name: "_addRecepieList",
+    name: "_addRecipeList",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1057,7 +1057,7 @@ export const CONTRACT_ABI_PRODUCTS = [
     inputs: [
       {
         internalType: "uint256",
-        name: "recepieId",
+        name: "recipeId",
         type: "uint256",
       },
       {
@@ -1354,7 +1354,7 @@ export const CONTRACT_ABI_PRODUCTS = [
       },
       {
         internalType: "uint256",
-        name: "recepieId",
+        name: "recipeId",
         type: "uint256",
       },
       {
@@ -1368,7 +1368,7 @@ export const CONTRACT_ABI_PRODUCTS = [
   },
   {
     inputs: [],
-    name: "recepieCounter",
+    name: "recipeCounter",
     outputs: [
       {
         internalType: "uint256",
@@ -1392,11 +1392,11 @@ export const CONTRACT_ABI_PRODUCTS = [
         type: "uint256",
       },
     ],
-    name: "recepieIngredients",
+    name: "recipeIngredients",
     outputs: [
       {
         internalType: "uint256",
-        name: "recepieId",
+        name: "recipeId",
         type: "uint256",
       },
       {
@@ -1421,7 +1421,7 @@ export const CONTRACT_ABI_PRODUCTS = [
         type: "uint256",
       },
     ],
-    name: "recepies",
+    name: "recipes",
     outputs: [
       {
         internalType: "uint256",

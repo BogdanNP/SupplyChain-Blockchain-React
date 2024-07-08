@@ -62,7 +62,7 @@ function DashboardPage() {
         manufacturingDate: productEvent["args"].manDateEpoch,
         expirationDate: productEvent["args"].expDateEpoch,
         details:
-          "Ingredients:" + productEvent["args"].parentProducts.join(", "),
+          "Ingrediente:" + productEvent["args"].parentProducts.join(", "),
       };
     });
     setComposedProducts(_composedProducts);
@@ -98,24 +98,30 @@ function DashboardPage() {
 
   return (
     <div>
-      Dashboard Page, here we should display events from all contracts
-      <br />
-      <h4> {"Actors in system: " + usersCount}</h4>
-      <br />
-      <h4>Base Product Events:</h4>
+      <h4> {"Actori inregistrati in sistem: " + usersCount}</h4>
+      <p>
+        Pagina de monitorizare, aici vor aparea fiecare modificare facuta in
+        sistem.
+      </p>
+      <h4>Produse de baza</h4>
+      <p>Aici vor aparea produsele de baza care au fost adaugate</p>
       <ProductEventTable items={products} />
       <br />
       <br />
-      <h4>Composed Product Events:</h4>
+      <h4>Produse compuse</h4>
+      <p>Aici vor aparea produsele compuse care au fost adaugate</p>
       <ProductEventTable items={composedProducts} />
       <br />
-      <h4> Transfer Events:</h4>
+      <h4>Transferuri intre utilizatori</h4>
+      <p>Aici vor aparea transferurile de produse intre doi utilizatori</p>
       <TransferTable items={transfers} user={user} />
       <br />
-      <h4>Blocked Product Events:</h4>
+      <h4>Produse blocate</h4>
+      <p>Aici vor aparea produsele blocate si statusul blocarii lor</p>
       <ProductBlockEventTable items={blockedProducts} />
       <br />
-      <h4> Product Type Events:</h4>
+      <h4>Tipuri de produse</h4>
+      <p>Aici vor aparea tipurile de produse care au fost adaugate in sistem</p>
       <ProductTypeTable items={productTypes} />
       <br />
     </div>

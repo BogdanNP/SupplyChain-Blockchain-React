@@ -21,7 +21,7 @@ import ConnectPage from "./pages/ConnectPage";
 import ProfilePage from "./pages/ProfilePage";
 import MyStockPage from "./pages/MyStockPage";
 import ProductsPage from "./pages/ProductsPage";
-import RecepiesPage from "./pages/RecepiesPage";
+import RecipesPage from "./pages/RecipesPage";
 import DashboardPage from "./pages/DashboardPage";
 import TrackingPage from "./pages/TrackingPage";
 import CompaniesPage from "./pages/CompaniesPage";
@@ -62,7 +62,7 @@ function App() {
           navigate("/profile");
         }}
       >
-        Profile
+        Profil
       </Button>
     );
     transfersButton = (
@@ -72,7 +72,7 @@ function App() {
           navigate("/transfers");
         }}
       >
-        Transfers
+        Transferuri
       </Button>
     );
     myStockButton = (
@@ -82,7 +82,7 @@ function App() {
           navigate("/my_stock");
         }}
       >
-        MY STOCK
+        Stoc
       </Button>
     );
   } else {
@@ -93,7 +93,7 @@ function App() {
           navigate("/connect");
         }}
       >
-        Connect
+        Conectare
       </Button>
     );
   }
@@ -119,7 +119,7 @@ function App() {
               navigate("/dashboard");
             }}
           >
-            Dashboard
+            Monitorizare
           </Button>
           {profileButton}
           <Button
@@ -128,7 +128,7 @@ function App() {
               navigate("/companies");
             }}
           >
-            Companies
+            Cautare conturi
           </Button>{" "}
           {myStockButton}
           <Button
@@ -137,15 +137,15 @@ function App() {
               navigate("/products");
             }}
           >
-            Products
+            Tipuri de produse
           </Button>
           <Button
             color="inherit"
             onClick={() => {
-              navigate("/recepies");
+              navigate("/recipes");
             }}
           >
-            Recepies
+            Retete
           </Button>
           <Button
             color="inherit"
@@ -153,7 +153,7 @@ function App() {
               navigate("/track");
             }}
           >
-            Track
+            Urmarire
           </Button>{" "}
           {transfersButton}
         </Toolbar>
@@ -166,7 +166,7 @@ function App() {
           <Route path="/my_stock" element={<MyStockPage />} />
           <Route path="/companies" element={<CompaniesPage />} />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/recepies" element={<RecepiesPage />} />
+          <Route path="/recipes" element={<RecipesPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/track" element={<TrackingPage />} />
           <Route path="/transfers" element={<SellProductPage />} />
@@ -175,7 +175,7 @@ function App() {
             path="/transfers/:barcodeId/:quantity"
             element={<SellProductPage />}
           />
-          <Route path="*" element={<div>No Page</div>} />
+          <Route path="*" element={<div>Pagina indisponibila</div>} />
         </Routes>
       </Box>
     </Box>

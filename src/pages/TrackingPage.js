@@ -46,6 +46,7 @@ function TrackingPage() {
     <div>
       {blockProductForm}
       <ProductTrackForm onSubmit={trackProducts} />
+      <ProductHeader product={productHistory?.product}></ProductHeader>
       <ProductList
         product={productHistory?.product}
         parents={productHistory?.parents}
@@ -54,12 +55,24 @@ function TrackingPage() {
   );
 }
 
+function ProductHeader(props) {
+  if (props?.product === undefined || props.product.name === "") {
+    return <div></div>;
+  }
+  return (
+    <h6 style={{ fontSize: 18 }}>
+      {"Nume produs"} | {"Producator"} | {"Data productie"} | {"Data expirare"}{" "}
+      | {"Cod de bare"}
+    </h6>
+  );
+}
+
 function ProductList(props) {
   if (props?.product === undefined) {
-    return <h6 style={{ fontSize: 18 }}>Search for a product</h6>;
+    return <h6 style={{ fontSize: 18 }}>Cauta un produs</h6>;
   }
   if (props.product.name === "") {
-    return <h6 style={{ fontSize: 18 }}>Product not found</h6>;
+    return <h6 style={{ fontSize: 18 }}>Produsul nu a fost gasit</h6>;
   }
 
   return (

@@ -2,8 +2,8 @@ import { CONTRACT_ABI_PRODUCTS, CONTRACT_ADDRESS_PRODUCTS } from "../config";
 
 import { ethers } from "ethers";
 import { decodeError } from "ethers-decode-error";
-import { Recepie } from "../models/Recepie";
-import { RecepieIngredient } from "../models/RecepieIngredient";
+import { Recipe } from "../models/Recipe";
+import { RecipeIngredient } from "../models/RecipeIngredient";
 import { ProductType } from "../models/ProductType";
 import { Product } from "../models/Product";
 
@@ -123,13 +123,11 @@ class ProductsContract {
     }
   }
 
-  async getRecepieEvents() {
+  async getRecipeEvents() {
     try {
-      const recepieEvents = await this.productsContract.queryFilter(
-        "NewRecepie"
-      );
+      const recipeEvents = await this.productsContract.queryFilter("NewRecipe");
       // TODO: maybe convert data to model?
-      return recepieEvents.map((e) => e["args"]);
+      return recipeEvents.map((e) => e["args"]);
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -151,9 +149,9 @@ class ProductsContract {
     }
   }
 
-  async getRecepieCounter() {
+  async getRecipeCounter() {
     try {
-      return (await this.productsContract.recepieCounter()).toNumber();
+      return (await this.productsContract.recipeCounter()).toNumber();
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);
@@ -161,23 +159,23 @@ class ProductsContract {
     }
   }
 
-  async getRecepieList() {
+  async getRecipeList() {
     try {
-      let recepies = [];
-      const recepieCounter = await this.productsContract.recepieCounter();
-      for (let i = 0; i < recepieCounter.toNumber(); i++) {
-        let recepie = await this.productsContract.recepies(i);
+      let recipes = [];
+      const recipeCounter = await this.productsContract.recipeCounter();
+      for (let i = 0; i < recipeCounter.toNumber(); i++) {
+        let recipe = await this.productsContract.recipes(i);
         let ingredients = [];
-        for (let j = 0; j < recepie.ingredientsCount.toNumber(); ++j) {
-          let ingredient = await this.productsContract.recepieIngredients(i, j);
+        for (let j = 0; j < recipe.ingredientsCount.toNumber(); ++j) {
+          let ingredient = await this.productsContract.recipeIngredients(i, j);
           let productType = await this.productsContract.productTypes(
             ingredient.productTypeId
           );
-          ingredients.push(new RecepieIngredient(ingredient, productType));
+          ingredients.push(new RecipeIngredient(ingredient, productType));
         }
-        recepies.push(new Recepie(recepie, ingredients));
+        recipes.push(new Recipe(recipe, ingredients));
       }
-      return recepies;
+      return recipes;
     } catch (error) {
       console.error(error);
       const contractError = decodeError(error);

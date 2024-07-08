@@ -19,11 +19,11 @@ function ProductTrackForm(props) {
 
   return (
     <div>
-      <h4>Track Product </h4>
+      <h4>Vezi istoricul unui produs </h4>
       <form onSubmit={handleSubmit}>
         <TextField
           type="text"
-          label="Barcode Id"
+          label="Cod de bare"
           name="barcodeId"
           value={inputs.barcodeId ?? ""}
           onChange={handleChange}

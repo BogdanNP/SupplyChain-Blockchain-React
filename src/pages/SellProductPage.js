@@ -76,11 +76,17 @@ function SellProductPage(props) {
 
   return (
     <div>
-      <h4> New transfer </h4>
+      <h4>Creaza un transfer nou</h4>
+      <p>
+        {" "}
+        Introduceti codul de bare al produsului pe care doriti sa il
+        transferati, introduceti cantitatea, iar in final selectati destinatarul
+        transferuli in sectiunea de Cumparator.{" "}
+      </p>
       <form onSubmit={handleSubmit}>
         <TextField
           type="number"
-          label="Barcode Id"
+          label="Cod de bare"
           name="barcodeId"
           value={inputs.barcodeId ?? ""}
           onChange={handleChange}
@@ -89,7 +95,7 @@ function SellProductPage(props) {
         <br />
         <TextField
           type="number"
-          label="Quantity"
+          label="Canitate"
           name="quantity"
           value={inputs.quantity ?? ""}
           onChange={handleChange}
@@ -97,10 +103,10 @@ function SellProductPage(props) {
         <br />
         <br />
         <FormControl fullWidth>
-          <InputLabel>Buyer</InputLabel>
+          <InputLabel>Cumparator</InputLabel>
           <Select
             value={inputs.buyerIndex ?? ""}
-            label="Buyer"
+            label="Cumparator"
             onChange={handleChange}
             name="buyerIndex"
           >
@@ -119,7 +125,7 @@ function SellProductPage(props) {
       </form>
       <br />
       <div>
-        <h4>My Transfers </h4>
+        <h4>Transferuri</h4>
         <TransferTable
           items={accountTransfers}
           user={user}

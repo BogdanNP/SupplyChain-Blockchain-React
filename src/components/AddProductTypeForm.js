@@ -18,10 +18,10 @@ function AddProductTypeForm(props) {
 
   return (
     <div>
-      <h4>Add Product Type</h4>
+      <h4>Adaugati un tip de produs</h4>
       <form onSubmit={handleSubmit}>
         <label>
-          Product Type Name:
+          Numele tipului de produs:
           <input
             type="text"
             name="name"
@@ -31,7 +31,7 @@ function AddProductTypeForm(props) {
         </label>
         <br />
         <label>
-          Details:
+          Detalii:
           <input
             type="text"
             name="details"

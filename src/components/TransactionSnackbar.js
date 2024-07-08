@@ -14,15 +14,15 @@ function TransactionSnackbar(props) {
         variant="filled"
         sx={{ width: "100%" }}
       >
-        {"Transaction receipt:"} <br />
-        {`* To: ${props.txReceipt?.to}`} <br />
-        {`* From: ${props.txReceipt?.from}`} <br />
-        {`* Transaction hash: ${props.txReceipt?.transactionHash}`} <br />
-        {`* Block hash: ${props.txReceipt?.blockHash}`} <br />
-        {`* Block number: ${props.txReceipt?.blockNumber}`} <br />
-        {`* Gas used: ${props.txReceipt?.gasUsed}`} <br />
-        {`* Effective gas price: ${props.txReceipt?.effectiveGasPrice}`} <br />
-        {`* Transaction price in ETH: ${
+        {"Transactie:"} <br />
+        {`* Catre: ${props.txReceipt?.to}`} <br />
+        {`* De la: ${props.txReceipt?.from}`} <br />
+        {`* Hash tranzactie: ${props.txReceipt?.transactionHash}`} <br />
+        {`* Hash block: ${props.txReceipt?.blockHash}`} <br />
+        {`* Numar de block: ${props.txReceipt?.blockNumber}`} <br />
+        {`* Gas utilizat: ${props.txReceipt?.gasUsed}`} <br />
+        {`* Pret gas efectiv: ${props.txReceipt?.effectiveGasPrice}`} <br />
+        {`* Pretul tranzactiei in ETH: ${
           ((props.txReceipt?.effectiveGasPrice ?? 0) *
             (props.txReceipt?.gasUsed ?? 0)) /
           1000000000000000000

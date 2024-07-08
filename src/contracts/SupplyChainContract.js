@@ -37,9 +37,9 @@ class SupplyChainContract {
     }
   }
 
-  async createProduct(recepieId) {
+  async createProduct(recipeId) {
     try {
-      const tx = await this.supplyChainContract.createProduct(recepieId);
+      const tx = await this.supplyChainContract.createProduct(recipeId);
       return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);

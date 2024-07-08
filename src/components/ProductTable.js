@@ -23,15 +23,15 @@ function ProductTable(props) {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell> Name</TableCell>
+              <TableCell> Nume produs</TableCell>
               {/* <TableCell> Type Id</TableCell> */}
-              <TableCell> Man. Name</TableCell>
+              <TableCell> Producator</TableCell>
               {/* <TableCell> Man. Id</TableCell> */}
-              <TableCell> Quantity</TableCell>
-              <TableCell> Man. Date</TableCell>
-              <TableCell> Exp. Date</TableCell>
-              <TableCell> Barcode</TableCell>
-              <TableCell> Action</TableCell>
+              <TableCell> Cantitate</TableCell>
+              <TableCell> Data de productie</TableCell>
+              <TableCell> Data de expirare</TableCell>
+              <TableCell> Cod de bare</TableCell>
+              <TableCell> Actiuni</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -69,7 +69,7 @@ function ProductTable(props) {
                       navigate(`/transfers/${item.barcodeId}/${item.quantity}`);
                     }}
                   >
-                    Sell
+                    Vinde
                   </Button>
                 </TableCell>
               </TableRow>

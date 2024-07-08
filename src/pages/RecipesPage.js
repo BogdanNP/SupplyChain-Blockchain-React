@@ -2,15 +2,15 @@ import { React, useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import ProductsContract from "../contracts/ProductsContract";
-import RecepieCard from "../components/RecepieCard";
+import RecipeCard from "../components/RecipeCard";
 
-function RecepiesPage(props) {
+function RecipesPage(props) {
   var _productsContract = new ProductsContract();
-  const [recepies, setRecepies] = useState();
+  const [recipes, setRecipes] = useState();
 
   async function loadBlockChainData() {
-    let _recepies = await _productsContract.getRecepieList();
-    setRecepies(_recepies);
+    let _recipes = await _productsContract.getRecipeList();
+    setRecipes(_recipes);
   }
 
   useEffect(() => {
@@ -20,13 +20,17 @@ function RecepiesPage(props) {
   return (
     <div>
       <Typography gutterBottom variant="h5" component="div">
-        {"Recepies"}
+        {"Retete"}
       </Typography>
+      <p>
+        Aici sunt afisate toate retetele disponibile pentru utilizarea in
+        sistem.
+      </p>
       <Grid container spacing={3}>
-        {recepies?.map((recepie) => {
+        {recipes?.map((recipe) => {
           return (
-            <Grid item xs={5} key={recepie.id}>
-              <RecepieCard recepie={recepie} />
+            <Grid item xs={5} key={recipe.id}>
+              <RecipeCard recipe={recipe} />
             </Grid>
           );
         })}
@@ -35,4 +39,4 @@ function RecepiesPage(props) {
   );
 }
 
-export default RecepiesPage;
+export default RecipesPage;

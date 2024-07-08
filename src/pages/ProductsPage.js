@@ -25,7 +25,6 @@ function ProductsPage() {
   }
 
   async function addProductType(productTypeDetails) {
-    // console.log(productTypeDetails);
     const productType = {
       name: productTypeDetails["name"],
       details: productTypeDetails["details"],
@@ -54,7 +53,12 @@ function ProductsPage() {
     <div>
       {addProductTypeForm}
       <br />
-      <h4> Product Type Table:</h4>
+      <h4> Tabelul cu tipuri de produse</h4>
+      <p>
+        {" "}
+        Aici sunt afisate toate tipurile disponibile in sistem, acestea sunt
+        utilizate in crearea de produse.
+      </p>
       <ProductTypeTable items={productTypes} />
     </div>
   );

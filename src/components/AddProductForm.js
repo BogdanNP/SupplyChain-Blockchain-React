@@ -26,9 +26,9 @@ function AddProductForm(props) {
     };
     console.log(inputs);
     if (inputs.productTypeId === null) {
-      alert("Please select product");
+      alert("Selectati un produs");
     } else if (inputs.batchCount === undefined || inputs.batchCount < 0) {
-      alert("Please enter a valid batch count");
+      alert("Introduceti o cantitate valida");
     } else {
       props.onSubmit(inputs);
     }
@@ -36,15 +36,17 @@ function AddProductForm(props) {
 
   return (
     <div>
-      <h4>Add Product</h4>
+      <h4>Adaugati un produs</h4>
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Product</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            Selectati tipul de produs
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={productTypeIndex ?? ""}
-            label="Product"
+            label="Produs"
             onChange={(event) => {
               setProductTypeIndex(event.target.value);
             }}
@@ -61,14 +63,14 @@ function AddProductForm(props) {
         <br />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            label="Manufacturing Date"
+            label="Data de fabricare"
             value={manufacturingDate}
             onChange={(newDate) => setManufacturingDate(newDate)}
           />
         </LocalizationProvider>{" "}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            label="Expiration Date"
+            label="Data de expirare"
             value={expirationDate}
             onChange={(newDate) => setExpirationDate(newDate)}
           />
@@ -77,7 +79,7 @@ function AddProductForm(props) {
         <br />
         <TextField
           type="number"
-          label="Batch Count"
+          label="Cantitate"
           value={batchCount ?? ""}
           onChange={(newValue) => setBatchCount(newValue.target.value)}
         ></TextField>

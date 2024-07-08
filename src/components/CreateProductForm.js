@@ -7,14 +7,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import SimplePopup from "./SimplePopup";
-import RecepieCard from "./RecepieCard";
+import RecipeCard from "./RecipeCard";
 
 function CreateProductForm(props) {
   const [inputs, setInputs] = useState("");
 
   const handleChange = (event) => {
     const value = event.target.value;
-    setInputs({ recepieId: value });
+    setInputs({ recipeId: value });
   };
 
   const handleSubmit = () => {
@@ -23,35 +23,33 @@ function CreateProductForm(props) {
 
   return (
     <div>
-      <h4>Use Recepie</h4>
+      <h4>Crearea unui produs pe baza unei retete</h4>
+      <p>Selectati retetea pe care doriti sa o utilizati</p>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Recepie</InputLabel>
+          <InputLabel id="demo-simple-select-label">Recipe</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={inputs.recepieId ?? ""}
-            label="Recepie"
+            value={inputs.recipeId ?? ""}
+            label="Reteta"
             onChange={handleChange}
           >
-            {props.recepieList?.map((recepie) => (
-              <MenuItem
-                value={recepie.id.toString()}
-                key={recepie.id.toString()}
-              >
-                {recepie.resultTypeName.toString()}
+            {props.recipeList?.map((recipe) => (
+              <MenuItem value={recipe.id.toString()} key={recipe.id.toString()}>
+                {recipe.resultTypeName.toString()}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <br />
         <br />
-        <SimplePopup buttonKey="View Recepie">
-          <RecepieCard
-            recepie={props.recepieList?.find(
-              (recepie) => recepie.id.toString() === inputs.recepieId
+        <SimplePopup buttonKey="Vizualizare reteta">
+          <RecipeCard
+            recipe={props.recipeList?.find(
+              (recipe) => recipe.id.toString() === inputs.recipeId
             )}
-          ></RecepieCard>
+          ></RecipeCard>
         </SimplePopup>
         <br />
         <Button variant="contained" onClick={handleSubmit}>

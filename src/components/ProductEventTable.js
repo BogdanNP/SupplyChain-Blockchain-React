@@ -19,12 +19,12 @@ function ProductEventTable(props) {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell> Name</TableCell>
-              <TableCell> Manufacturer</TableCell>
-              <TableCell> Manufacturing Date</TableCell>
-              <TableCell> Expiration Date</TableCell>
-              <TableCell> Barcode</TableCell>
-              <TableCell> Details</TableCell>
+              <TableCell> Nume produs</TableCell>
+              <TableCell> Producator</TableCell>
+              <TableCell> Data productie</TableCell>
+              <TableCell> Data expirate</TableCell>
+              <TableCell> Cod de bare</TableCell>
+              <TableCell> Detalii</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

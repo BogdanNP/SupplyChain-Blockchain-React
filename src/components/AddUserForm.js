@@ -26,7 +26,7 @@ function AddUserForm(props) {
 
   return (
     <div>
-      <h4>Add Company </h4>
+      <h4>Adaugati un actor </h4>
       <form onSubmit={handleSubmit}>
         <TextField
           type="text"
@@ -39,7 +39,7 @@ function AddUserForm(props) {
         <br />
 
         <FormControl>
-          <InputLabel>User Type</InputLabel>
+          <InputLabel>Rolul utilizatorului</InputLabel>
           <Select
             value={inputs.role ?? ""}
             label="User Type"
@@ -48,13 +48,13 @@ function AddUserForm(props) {
             name="role"
           >
             <MenuItem value={"Manufacturer"} key={0}>
-              Manufacturer
+              Producator
             </MenuItem>
             <MenuItem value={"Supplier"} key={1}>
-              Supplier
+              Distribuitor
             </MenuItem>
             <MenuItem value={"Vendor"} key={2}>
-              Vendor
+              Vanzator
             </MenuItem>
             {/* <MenuItem value={"Customer"} key={3}>
               Customer
@@ -65,7 +65,7 @@ function AddUserForm(props) {
         <br />
         <TextField
           type="text"
-          label="Display Name"
+          label="Nume"
           name="name"
           value={inputs.name ?? ""}
           onChange={handleChange}

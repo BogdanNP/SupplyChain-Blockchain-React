@@ -1,11 +1,11 @@
-function RecepieTable(props) {
+function RecipeTable(props) {
   if (props.items === undefined) {
     return <div></div>;
   }
 
   return (
-    <div className="RecepieTable">
-      <h4>Recepie Table</h4>
+    <div className="RecipeTable">
+      <h4>Recipe Table</h4>
       <table>
         <thead>
           <tr>
@@ -45,4 +45,4 @@ function RecepieTable(props) {
   );
 }
 
-export default RecepieTable;
+export default RecipeTable;

@@ -3,31 +3,31 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-function RecepieCard(props) {
-  if (props.recepie === undefined) {
+function RecipeCard(props) {
+  if (props.recipe === undefined) {
     return <div></div>;
   }
   return (
     <Card sx={{ maxWidth: 345 }} style={{ backgroundColor: "#BEBEBE" }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {props.recepie.resultTypeName + " (#" + props.recepie.id + ")"}
+          {props.recipe.resultTypeName + " (#" + props.recipe.id + ")"}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {"Ingredients (" + props.recepie.ingredientsCount + "):"}
+          {"Ingrediente (" + props.recipe.ingredientsCount + "):"}
         </Typography>
-        {props.recepie.ingredients?.map((ingredient, index) => {
-          return <RecepieIngredientCard key={index} ingredient={ingredient} />;
+        {props.recipe.ingredients?.map((ingredient, index) => {
+          return <RecipeIngredientCard key={index} ingredient={ingredient} />;
         })}
         <Typography variant="body2" color="text.secondary">
-          {"Quantity result:" + props.recepie.quantityResult}
+          {"Cantitatea rezultata:" + props.recipe.quantityResult}
         </Typography>
       </CardContent>
     </Card>
   );
 }
 
-function RecepieIngredientCard(props) {
+function RecipeIngredientCard(props) {
   return (
     <div>
       <Typography variant="body2" color="text.secondary">
@@ -42,4 +42,4 @@ function RecepieIngredientCard(props) {
   );
 }
 
-export default RecepieCard;
+export default RecipeCard;

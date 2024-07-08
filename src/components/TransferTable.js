@@ -24,20 +24,20 @@ function TransferTable(props) {
 
   let actions;
   if (showActions) {
-    actions = <TableCell> Actions </TableCell>;
+    actions = <TableCell> Actiuni </TableCell>;
   }
 
   return (
     <div className="TransferTable">
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ maxHeight: 800 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell> Id</TableCell>
-              <TableCell> Sender </TableCell>
-              <TableCell> Receiver </TableCell>
-              <TableCell> BarcodeId </TableCell>
-              <TableCell> Quantity </TableCell>
+              <TableCell> Expeditor </TableCell>
+              <TableCell> Destinatar </TableCell>
+              <TableCell> Cod de bare </TableCell>
+              <TableCell> Cantitate </TableCell>
               <TableCell> Status </TableCell>
               {actions}
             </TableRow>
@@ -56,7 +56,7 @@ function TransferTable(props) {
                         props.acceptTransfer(item.id);
                       }}
                     >
-                      Accept
+                      Acceptare
                     </Button>
                   </TableCell>
                 );
@@ -68,7 +68,7 @@ function TransferTable(props) {
                         props.refuseTransfer(item.id);
                       }}
                     >
-                      Refuse
+                      Refuzare
                     </Button>
                   </TableCell>
                 );
@@ -81,7 +81,7 @@ function TransferTable(props) {
                         props.cancelTransfer(item.id);
                       }}
                     >
-                      Cancel
+                      Anulare
                     </Button>
                   </TableCell>
                 );
@@ -99,10 +99,10 @@ function TransferTable(props) {
                   <TableCell>{item.quantity?.toNumber() ?? 0}</TableCell>
                   <TableCell>
                     {item.status === 1
-                      ? "Accepted"
+                      ? "Acceptat"
                       : item.status === 2
-                      ? "Refused"
-                      : "Pending"}
+                      ? "Refuzat"
+                      : "In asteptare"}
                   </TableCell>
                   {actionAccept}
                   {actionDelete}

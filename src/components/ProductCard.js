@@ -14,19 +14,19 @@ function ProductCard(props) {
           {props.product.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {"Type id:" + props.product.productTypeId}
+          {"Tipul de produs:" + props.product.productTypeId}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {"Manufacturer:" + props.product.manufacturerName}
+          {"Producator:" + props.product.manufacturerName}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {"Batch count:" + props.product.batchCount}
+          {"Cantitate:" + props.product.batchCount}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {"Manufacturin date:" + props.product.manufacturingDate}
+          {"Data de productie:" + props.product.manufacturingDate}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {"Expiration date:" + props.product.expirationDate}
+          {"Data de expirare:" + props.product.expirationDate}
         </Typography>
         <Barcode
           value={props.product.barcodeId}
@@ -40,7 +40,7 @@ function ProductCard(props) {
             size="small"
             //   style={{ background: "#123" }}
           >
-            Sell
+            Vinde
           </Button>
         </CardActions>
       </CardContent>

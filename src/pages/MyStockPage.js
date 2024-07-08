@@ -7,6 +7,7 @@ import ProductTable from "../components/ProductTable";
 import CreateProductForm from "../components/CreateProductForm";
 import AddProductForm from "../components/AddProductForm";
 import TransactionSnackbar from "../components/TransactionSnackbar";
+import { UserRoles } from "../models/UserRoles";
 import { useNavigate } from "react-router-dom";
 
 function MyStockPage() {
@@ -15,7 +16,7 @@ function MyStockPage() {
   const _supplyChainContract = new SupplyChainContract();
   const [productTypes, setProductTypes] = useState();
   const [products, setProducts] = useState();
-  const [recepies, setRecepies] = useState();
+  const [recipes, setRecipes] = useState();
   const [user, setUser] = useState();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [txReceipt, setTxReceipt] = useState(undefined);
@@ -33,6 +34,7 @@ function MyStockPage() {
     if (_user === undefined) {
       navigate("/connect");
     } else {
+      console.log("user", _user);
       setUser(_user);
 
       const _productTypes = await _productsContract.getProductTypeList();
@@ -41,8 +43,8 @@ function MyStockPage() {
       const _products = await _productsContract.getProductList(_user.id);
       setProducts(_products);
 
-      const _recepies = await _productsContract.getRecepieList();
-      setRecepies(_recepies);
+      const _recipes = await _productsContract.getRecipeList();
+      setRecipes(_recipes);
     }
   }
 
@@ -73,7 +75,7 @@ function MyStockPage() {
 
   async function createProduct(data) {
     const _txReceipt = await _supplyChainContract.createProduct(
-      data["recepieId"]
+      data["recipeId"]
     );
     setTxReceipt(_txReceipt);
     if (_txReceipt !== undefined) {
@@ -83,25 +85,36 @@ function MyStockPage() {
     }
   }
 
+  let addProductSection;
+  if (user?.role === UserRoles.Manufacturer) {
+    addProductSection = (
+      <div>
+        {" "}
+        <AddProductForm
+          onSubmit={(e) => {
+            addProduct(e);
+          }}
+          productTypes={productTypes}
+        />
+        <br />
+        <CreateProductForm
+          onSubmit={(e) => {
+            createProduct(e);
+          }}
+          recipeList={recipes}
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
-      <AddProductForm
-        onSubmit={(e) => {
-          addProduct(e);
-        }}
-        productTypes={productTypes}
-      />
-      <br />
-      <CreateProductForm
-        onSubmit={(e) => {
-          createProduct(e);
-        }}
-        recepieList={recepies}
-      />
+      {addProductSection}
       <br />
       <Typography gutterBottom variant="h5" component="div">
-        {"My Product Stock"}
+        {"Stocul de produse"}
       </Typography>
+      <p>Aici sunt afisate produsele disponibile in stoc</p>
       <ProductTable items={products} />
       <TransactionSnackbar
         openSnackbar={openSnackbar}

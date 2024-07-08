@@ -19,11 +19,11 @@ function FindUserForm(props) {
 
   return (
     <div>
-      <h4>Find Company </h4>
+      <h4>Cautati un cont dupa cheie</h4>
       <form onSubmit={handleSubmit}>
         <TextField
           type="text"
-          label="Public Key"
+          label="Cheia publica"
           name="address"
           value={inputs.address ?? ""}
           onChange={handleChange}

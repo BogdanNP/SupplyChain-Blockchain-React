@@ -18,7 +18,7 @@ function ProductBlockEventTable(props) {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell> Barcode</TableCell>
+              <TableCell> Cod de bare</TableCell>
               <TableCell> Status</TableCell>
             </TableRow>
           </TableHead>
@@ -37,7 +37,7 @@ function ProductBlockEventTable(props) {
                   ></Barcode>
                 </TableCell>
                 <TableCell>
-                  {item.status === true ? "Blocked" : "Not Blocked"}
+                  {item.status === true ? "Blocat" : "Utilizabil"}
                 </TableCell>
               </TableRow>
             ))}

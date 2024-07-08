@@ -43,36 +43,36 @@ function ConnectPage() {
 
   return (
     <div>
-      <h4>Select user type</h4>
+      <h4>Selectati tipul de utilizator</h4>
       <form>
         <FormControl>
-          <InputLabel>User Type</InputLabel>
+          <InputLabel>Tipul de utilizator</InputLabel>
           <Select
             value={inputs.role ?? ""}
-            label="User Type"
+            label="Tipul de utilizator"
             defaultValue={"Client"}
             onChange={handleChange}
             name="role"
           >
             <MenuItem value={"Manufacturer"} key={0}>
-              Manufacturer
+              Producator
             </MenuItem>
             <MenuItem value={"Supplier"} key={1}>
-              Supplier
+              Distribuitor
             </MenuItem>
             <MenuItem value={"Vendor"} key={2}>
-              Vendor
+              Vanzator
             </MenuItem>
-            <MenuItem value={"Customer"} key={3}>
-              Customer
-            </MenuItem>
+            {/* <MenuItem value={"Customer"} key={3}>
+              Client
+            </MenuItem> */}
           </Select>
         </FormControl>
         <br />
         <br />
         <TextField
           type="text"
-          label="Display Name"
+          label="Numele afisat"
           name="name"
           value={inputs.name ?? ""}
           onChange={handleChange}

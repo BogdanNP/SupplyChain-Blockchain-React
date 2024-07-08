@@ -22,7 +22,7 @@ function ProfilePage(props) {
   }, []);
   return (
     <div>
-      {/* Profile Page */}
+      <p>Pagina de profil, aici sunt afisate detaliile contului</p>
       <UserDetails user={user} />
     </div>
   );

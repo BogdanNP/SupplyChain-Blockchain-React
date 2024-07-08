@@ -19,11 +19,11 @@ function ProductBlockForm(props) {
 
   return (
     <div>
-      <h4>Block Product </h4>
+      <h4>Blocati un produs </h4>
       <form onSubmit={handleSubmit}>
         <TextField
           type="text"
-          label="Barcode Id"
+          label="Cod de bare"
           name="barcodeId"
           value={inputs.barcodeId ?? ""}
           onChange={handleChange}
