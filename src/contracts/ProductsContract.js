@@ -8,14 +8,6 @@ import { ProductType } from "../models/ProductType";
 import { Product } from "../models/Product";
 
 class ProductsContract {
-  static _instance = undefined;
-  static instance() {
-    if (ProductsContract._instance === undefined) {
-      ProductsContract._instance = new ProductsContract();
-    }
-    return ProductsContract._instance;
-  }
-
   constructor() {
     this._provider = new ethers.providers.Web3Provider(window.ethereum);
     this.productsContract = new ethers.Contract(
@@ -23,44 +15,6 @@ class ProductsContract {
       CONTRACT_ABI_PRODUCTS,
       this._provider.getSigner(0)
     );
-    this.listenToEvents();
-  }
-
-  listenToEvents() {
-    if (this.listening === true) {
-      return;
-    }
-    this.listening = true;
-    // console.log("init event listening");
-    this.productsContract.on(
-      {
-        address: CONTRACT_ADDRESS_PRODUCTS,
-        topics: [
-          ethers.utils.id("NewProduct(string,string,string,uint256,uint256)"),
-        ],
-      },
-      (productName, manufacturerName, barcodeId, manDate, expDate) => {
-        // console.log(
-        //   "NewProduct:",
-        //   productName,
-        //   manufacturerName,
-        //   barcodeId,
-        //   manDate.toNumber(),
-        //   expDate.toNumber()
-        // );
-      }
-    );
-    // this._provider.on(
-    //   {
-    //     address: CONTRACT_ADDRESS_PRODUCTS,
-    //     topics: [
-    //       ethers.utils.id("NewProduct(string,string,string,uint256,uint256)"),
-    //     ],
-    //   },
-    //   (value) => {
-    //     console.log("NewProduct:", value);
-    //   }
-    // );
   }
 
   async getProductEvents() {
@@ -69,10 +23,9 @@ class ProductsContract {
         "NewProduct"
       );
       return productEvents;
-      // return productEvents.map((e) => e["args"]);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -82,12 +35,10 @@ class ProductsContract {
       const productEvents = await this.productsContract.queryFilter(
         "ComposedProduct"
       );
-      // console.log(productEvents);
       return productEvents;
-      // return productEvents.map((e) => e["args"]);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -97,12 +48,10 @@ class ProductsContract {
       const productEvents = await this.productsContract.queryFilter(
         "BlockedProduct"
       );
-      // console.log(productEvents);
       return productEvents;
-      // return productEvents.map((e) => e["args"]);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -112,13 +61,10 @@ class ProductsContract {
       const productTypeEvents = await this.productsContract.queryFilter(
         "NewProductType"
       );
-      // TODO: maybe convert data to model?
-      // console.log(productTypeEvents);
       return productTypeEvents;
-      // return productTypeEvents.map((e) => e["args"]);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -126,11 +72,10 @@ class ProductsContract {
   async getRecipeEvents() {
     try {
       const recipeEvents = await this.productsContract.queryFilter("NewRecipe");
-      // TODO: maybe convert data to model?
       return recipeEvents.map((e) => e["args"]);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -140,11 +85,10 @@ class ProductsContract {
       const objectTransferredEvents = await this.productsContract.queryFilter(
         "ObjectTransferred"
       );
-      // TODO: maybe convert data to model?
       return objectTransferredEvents;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -153,8 +97,8 @@ class ProductsContract {
     try {
       return (await this.productsContract.recipeCounter()).toNumber();
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -177,8 +121,8 @@ class ProductsContract {
       }
       return recipes;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -194,8 +138,8 @@ class ProductsContract {
       }
       return productTypeList;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -228,8 +172,8 @@ class ProductsContract {
       });
       return productList;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -239,8 +183,8 @@ class ProductsContract {
       const product = await this.productsContract.products(barcodeId);
       return product;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -251,8 +195,8 @@ class ProductsContract {
       const parentProducts = await this.parentProducts(barcodeId);
       return { product: product, parents: parentProducts };
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -276,8 +220,8 @@ class ProductsContract {
       }
       return parentProductList;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -294,22 +238,23 @@ class ProductsContract {
       }
       return transferList;
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
 
   async requestTransfer(barcodeId, quantity, receiver) {
     try {
-      await this.productsContract.requestTransfer(
+      await this.product.product;
+      return await this.productsContract.requestTransfer(
         barcodeId,
         quantity,
         receiver
       );
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -318,9 +263,9 @@ class ProductsContract {
     try {
       await this.productsContract.acceptTransfer(transferId);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
-      // alert(contractError.error);
+      // console.error(error);
+      // const contractError = decodeError(error);
+      alert("Transferul nu poate fi realizat, produsul nu este disponibil");
     }
   }
 
@@ -328,8 +273,8 @@ class ProductsContract {
     try {
       await this.productsContract.refuseTransfer(transferId);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -338,8 +283,8 @@ class ProductsContract {
     try {
       await this.productsContract.refuseTransfer(transferId);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -348,8 +293,8 @@ class ProductsContract {
     try {
       await this.productsContract.getTransferStatus(transferId);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }

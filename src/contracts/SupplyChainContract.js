@@ -20,8 +20,8 @@ class SupplyChainContract {
       const tx = await this.supplyChainContract.addProductType(productType);
       return this.handleTransaction(tx);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -31,8 +31,8 @@ class SupplyChainContract {
       const tx = await this.supplyChainContract.addProduct(product);
       return this.handleTransaction(tx);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -42,9 +42,12 @@ class SupplyChainContract {
       const tx = await this.supplyChainContract.createProduct(recipeId);
       return this.handleTransaction(tx);
     } catch (error) {
-      console.error(error);
       const contractError = decodeError(error);
-      // alert(contractError.error);
+      if (contractError.error.includes("There are not enough ingredients")) {
+        alert(
+          "Nu sunt suficiente ingrediente in stoc pentru a realiza aceasta reteta."
+        );
+      }
     }
   }
 
@@ -53,8 +56,8 @@ class SupplyChainContract {
       const tx = await this.supplyChainContract.addUser(user);
       return this.handleTransaction(tx);
     } catch (error) {
-      console.error(error);
-      const contractError = decodeError(error);
+      // console.error(error);
+      // const contractError = decodeError(error);
       // alert(contractError.error);
     }
   }
@@ -62,11 +65,12 @@ class SupplyChainContract {
   async blockProduct(barcodeId) {
     try {
       const tx = await this.supplyChainContract.blockProduct(barcodeId, true);
-      console.log("blockProduct", tx);
+      return tx;
     } catch (error) {
-      console.error(error);
       const contractError = decodeError(error);
-      // alert(contractError.error);
+      if (contractError.error.includes("Product does not exist")) {
+        alert("Produsul cu codul de bare " + barcodeId + " nu exista!");
+      }
     }
   }
 
@@ -81,15 +85,13 @@ class SupplyChainContract {
       return this.handleTransaction(tx);
     } catch (error) {
       console.error(error);
-      const contractError = decodeError(error);
-      // alert(contractError.error);
     }
   }
 
   async handleTransaction(transaction) {
-    console.log("transaction: ", transaction);
+    // console.log("transaction: ", transaction);
     const transactionReceipt = await transaction.wait();
-    console.log("transactionReceipt: ", transactionReceipt);
+    // console.log("transactionReceipt: ", transactionReceipt);
     if (transactionReceipt.status === 1) {
       return transactionReceipt;
     }

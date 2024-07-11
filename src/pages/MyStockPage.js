@@ -11,7 +11,7 @@ import { UserRoles } from "../models/UserRoles";
 import { useNavigate } from "react-router-dom";
 
 function MyStockPage() {
-  const _productsContract = ProductsContract.instance();
+  const _productsContract = new ProductsContract();
   const _usersContract = new UsersContract();
   const _supplyChainContract = new SupplyChainContract();
   const [productTypes, setProductTypes] = useState();

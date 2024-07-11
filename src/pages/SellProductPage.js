@@ -10,6 +10,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import TransactionSnackbar from "../components/TransactionSnackbar";
 import TransferTable from "../components/TransferTable";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +26,15 @@ function SellProductPage(props) {
   const [user, setUser] = useState();
   const [buyers, setBuyers] = useState();
   const [accountTransfers, setAccountTransfers] = useState();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [txReceipt, setTxReceipt] = useState(undefined);
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
 
   useEffect(() => {
     loadBlockChainData();
@@ -54,7 +64,6 @@ function SellProductPage(props) {
           senderName: sender?.name ?? _user.name,
         };
       });
-      console.log("_accountTransfers", newAccT);
       setAccountTransfers(newAccT);
     }
   }
@@ -65,14 +74,20 @@ function SellProductPage(props) {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
-    _productsContract.requestTransfer(
+    const _txReceipt = await _productsContract.requestTransfer(
       inputs["barcodeId"],
       inputs["quantity"],
       buyers[inputs["buyerIndex"]].id
     );
-  };
+    console.log(_txReceipt);
+    if (_txReceipt !== undefined) {
+      await loadBlockChainData();
+      setTxReceipt(_txReceipt);
+      setOpenSnackbar(true);
+    }
+  }
 
   return (
     <div>
@@ -140,6 +155,11 @@ function SellProductPage(props) {
           }}
         ></TransferTable>
       </div>
+      <TransactionSnackbar
+        openSnackbar={openSnackbar}
+        handleCloseSnackbar={handleCloseSnackbar}
+        txReceipt={txReceipt}
+      />
     </div>
   );
 }

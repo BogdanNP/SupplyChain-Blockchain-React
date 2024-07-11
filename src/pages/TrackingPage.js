@@ -6,6 +6,7 @@ import { toDateString } from "../utils/DateUtils";
 import SupplyChainContract from "../contracts/SupplyChainContract";
 import UsersContract from "../contracts/UsersContract";
 import { UserRoles } from "../models/UserRoles";
+import TransactionSnackbar from "../components/TransactionSnackbar";
 
 function TrackingPage() {
   const _productsContract = new ProductsContract();
@@ -14,6 +15,15 @@ function TrackingPage() {
 
   const [productHistory, setProductHistory] = useState();
   const [user, setUser] = useState();
+  const [txReceipt, setTxReceipt] = useState(undefined);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
 
   useEffect(() => {
     loadBlockChainData();
@@ -33,7 +43,11 @@ function TrackingPage() {
 
   async function blockProduct(barcodeId) {
     const _barcodeId = barcodeId["barcodeId"];
-    _supplyChain.blockProduct(_barcodeId, true);
+    const _txReceipt = await _supplyChain.blockProduct(_barcodeId, true);
+    if (_txReceipt !== undefined) {
+      setTxReceipt(_txReceipt);
+      setOpenSnackbar(true);
+    }
   }
 
   let blockProductForm;
@@ -51,6 +65,11 @@ function TrackingPage() {
         product={productHistory?.product}
         parents={productHistory?.parents}
       ></ProductList>
+      <TransactionSnackbar
+        openSnackbar={openSnackbar}
+        handleCloseSnackbar={handleCloseSnackbar}
+        txReceipt={txReceipt}
+      />
     </div>
   );
 }
