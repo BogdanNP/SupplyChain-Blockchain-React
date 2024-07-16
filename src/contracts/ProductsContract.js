@@ -246,7 +246,7 @@ class ProductsContract {
 
   async requestTransfer(barcodeId, quantity, receiver) {
     try {
-      await this.product.product;
+      // await this.product.product;
       return await this.productsContract.requestTransfer(
         barcodeId,
         quantity,
@@ -254,8 +254,10 @@ class ProductsContract {
       );
     } catch (error) {
       // console.error(error);
-      // const contractError = decodeError(error);
-      // alert(contractError.error);
+      const contractError = decodeError(error);
+      if (contractError.error.includes("Product is blocked")) {
+        alert("Produsul este blocat");
+      }
     }
   }
 
