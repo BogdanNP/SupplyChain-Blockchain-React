@@ -35,7 +35,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### Stock page
 
+#### Create product
+
 ![Stock page](/images/stock.png)
+
+#### Products in stock
+
 ![Stock page](/images/stock2.png)
 
 ### Transfer page
