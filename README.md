@@ -13,8 +13,21 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### Monitoring page
 
+#### Base products manufactured
+
 ![Monitoring page](/images/monitoring.png)
+
+#### Composed products manufactured
+
 ![Monitoring page](/images/monitoring2.png)
+
+#### Transfers
+
+![Monitoring page](/images/monitoring3.png)
+
+#### Blocked products
+
+![Monitoring page](/images/monitoring4.png)
 
 ### Register page
 
