@@ -14,6 +14,8 @@ You may also see any lint errors in the console.
 
 ## Example
 
+### Monitoring
+
 ![Monitoring page](/images/monitoring.png)
 ![Monitoring page](/images/monitoring2.png)
 ![Register user](/images/login.png)
