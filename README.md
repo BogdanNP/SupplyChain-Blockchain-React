@@ -1,6 +1,6 @@
 # SupplyChain Blockchain React
 
-Front end client app for SupplyChain Blockchain Hardhat App
+Front end client app for [SupplyChain Blockchain Hardhat App](https://github.com/BogdanNP/SupplyChain-Blockchain-Hardhat)
 This app lets users to interact with the blockchain smart contracts deployed on the Ethereum blockchain.
 
 ## How to start the project
